@@ -52,7 +52,7 @@
 
     3-axis accelerometer:   Not required (Can be used to initialise the initial quaternion. Not integrated with the AR filter).
     3-axis gyrometer:       Required.
-    3-axis magnetometer:	Not required (Can be used to initialise the initial quaternion. Not integrated with AR filter).
+    3-axis magnetometer:    Not required (Can be used to initialise the initial quaternion. Not integrated with AR filter).
 */
 
 /*** Declaration of function prototype(s). ***/
