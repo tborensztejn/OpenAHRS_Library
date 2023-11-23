@@ -44,12 +44,12 @@
 /*** Declaration of function prototype(s). ***/
 
 void Slerp(float Quat[4], const float alpha, const float treshold, float InterpolatedQuat[4]);
-float AdaptativeGain(const float gain, const float Vect[3], const float t1, const float t2, const float magnitude);
-void OmegaMatrix(const float gyr[3], float Omega[16]);
+float AdaptiveGain(const float gain, const float Vect[3], const float firstTreshold, const float secondTreshold, const float magnitude);
+void OmegaMatrix(const float gyr[3], float MatOmega[16]);
 
 void UpdateAQUAFilter(
 	const AccelerometerRawMeasurements* Acc, const GyroscopeRawMeasurements* Gyr, const MagnetometerRawMeasurements* Mag,
 	float Quat[4], float PreviousQuat[4], const float Ts,
-	const bool adaptive, const float alpha, float *previousAlpha, const float beta, float *previousBeta, const float t1, const float t2, const float t3, const float t4, const float g, const float h);
+	const bool adaptive, const float alpha, float *previousAlpha, const float beta, float *previousBeta, const float adaptiveGainFirstThreshold, const float adaptiveGainSecondThreshold, const float accelerometerSlerpTreshold, const float magnetometerSlerpTreshold, const float g, const float h);
 
 #endif
