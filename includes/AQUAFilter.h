@@ -49,7 +49,7 @@
 
     3-axis accelerometer:   Required.
     3-axis gyrometer:       Optional.
-    3-axis magnetometer:	Required.
+    3-axis magnetometer:    Required.
 
     Note: this data fusion algorithm can only work if the following sensor associations are met.
     Accelerometer + Magnetometer: OK.
