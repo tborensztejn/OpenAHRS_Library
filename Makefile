@@ -2,7 +2,7 @@
 # clear && python3 generate_raw_measurements.py && cat build/raw_measurements.csv && gcc src/*.c -o build/OpenAHRS_9DOF -lm && cd build/ && ./OpenAHRS_9DOF && cd ..
 # clear && make clean && make && python3 generate_raw_measurements.py && cat build/raw_measurements.csv && cd build/ && ./OpenAHRS_9DOF && cd ..
 # clear && git clone https://OpenRTVC:ghp_FHTpGuD4s695Mzz8xVy3jOCfgafc5t08E81r@github.com/OpenRTVC/OpenAHRS.git && cd OpenAHRS && git add 'filename' && git commit -m "Add 'filename' file." && git push origin main
-# clear && make clean && make && python3 generate_raw_measurements.py && cat build/raw_measurements.csv && cd build/ && ./OpenAHRS_9DOF && cd .. && find * -type f -exec md5sum {} + | while read sum file; do md5sum_dest=$(md5sum "/home/titoune/github/OpenAHRS/$file" 2>/dev/null | awk '{print $1}'); [ "$sum" != "$md5sum_dest" ] && echo "Copie : $file" && cp "$file" "/home/titoune/github/OpenAHRS/$file"; done
+# clear && make clean && make && python3 generate_raw_measurements.py && cat build/raw_measurements.csv && cd build/ && ./OpenAHRS_9DOF && cd .. && find * -type f -exec md5sum {} + | while read sum file; do md5sum_dest=$(md5sum "/home/titoune/github/OpenAHRS/$file" 2>/dev/null | awk '{print $1}'); [ "$sum" != "$md5sum_dest" ] && echo "Copy of : $file" && cp "$file" "/home/titoune/github/OpenAHRS/$file"; done
 # clear && git checkout main && git add --all && git commit -m "Automatic update - $(date)" && git push origin main
 
 CC = gcc
