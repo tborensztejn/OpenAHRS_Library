@@ -3,9 +3,9 @@ import csv
 
 def GenerateRawMeasurements(rollAngle, pitchAngle, yawAngle, previousRollAngle, previousPitchAngle, previousYawAngle, Te = 0.1):
     # Declaration of constants.
-    g = 9.81
-    B = 48.0
-    #i = 35.0
+    g = 9.81    # Gravity magnitude.
+    B = 48.0    # Magnetic field magnitude.
+    #i = 35.0   # Magnetic field dip.
     i = 0.0
 
     Vacc_Rg = np.matrix([0, 0, -g])    # Gravity vector in the fixed frame (reference frame).
@@ -70,7 +70,7 @@ def GenerateRawMeasurements(rollAngle, pitchAngle, yawAngle, previousRollAngle, 
 
 def main():
     # Parameters.
-	Te = 0.004
+	Te = 0.004             # Sampling period in seconds.
 	niter = 6              # Number of samples to generate.
 	rollAmplitude = 10.0   # Roll amplitude in degrees.
 	rollFrequency = 0.2    # Roll frequency in Hz.
