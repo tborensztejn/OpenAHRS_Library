@@ -87,26 +87,26 @@ float AdaptiveGain(const float gain, const float Vect[3], const float firstTresh
 
 // Add an example here.
 void OmegaMatrix(const float gyr[3], float MatOmega[16]) {
-	float p = GetElement(gyr, 3, 1, 0, 0);
-	float q = GetElement(gyr, 3, 1, 1, 0);
-	float r = GetElement(gyr, 3, 1, 2, 0);
+    float p = GetElement(gyr, 3, 1, 0, 0);
+    float q = GetElement(gyr, 3, 1, 1, 0);
+    float r = GetElement(gyr, 3, 1, 2, 0);
 
-	SetElement(MatOmega, 4, 4, 0, 0, 0.0f);
-	SetElement(MatOmega, 4, 4, 0, 1, p);
-	SetElement(MatOmega, 4, 4, 0, 2, q);
-	SetElement(MatOmega, 4, 4, 0, 3, r);
+    SetElement(MatOmega, 4, 4, 0, 0, 0.0f);
+    SetElement(MatOmega, 4, 4, 0, 1, p);
+    SetElement(MatOmega, 4, 4, 0, 2, q);
+    SetElement(MatOmega, 4, 4, 0, 3, r);
 
-	SetElement(MatOmega, 4, 4, 1, 0, -p);
-	SetElement(MatOmega, 4, 4, 1, 1, 0.0f);
-	SetElement(MatOmega, 4, 4, 1, 2, r);
-	SetElement(MatOmega, 4, 4, 1, 3, -q);
+    SetElement(MatOmega, 4, 4, 1, 0, -p);
+    SetElement(MatOmega, 4, 4, 1, 1, 0.0f);
+    SetElement(MatOmega, 4, 4, 1, 2, r);
+    SetElement(MatOmega, 4, 4, 1, 3, -q);
 
-	SetElement(MatOmega, 4, 4, 2, 0, -q);
+    SetElement(MatOmega, 4, 4, 2, 0, -q);
     SetElement(MatOmega, 4, 4, 2, 1, -r);
     SetElement(MatOmega, 4, 4, 2, 2, 0.0f);
     SetElement(MatOmega, 4, 4, 2, 3, p);
 
-	SetElement(MatOmega, 4, 4, 3, 0, -r);
+    SetElement(MatOmega, 4, 4, 3, 0, -r);
     SetElement(MatOmega, 4, 4, 3, 1, q);
     SetElement(MatOmega, 4, 4, 3, 2, -p);
     SetElement(MatOmega, 4, 4, 3, 3, 0.0f);
