@@ -8,7 +8,7 @@ def GenerateRawMeasurements(rollAngle, pitchAngle, yawAngle, previousRollAngle, 
     #i = 35.0
     i = 0.0
 
-    Vacc_Rg = np.matrix([0, 0, -g])    # # Gravity vector in the fixed frame (reference frame).
+    Vacc_Rg = np.matrix([0, 0, -g])    # Gravity vector in the fixed frame (reference frame).
     #Vacc_Rg = np.matrix([0, 0, g])
 
     # Convert angles to radians.
@@ -22,14 +22,14 @@ def GenerateRawMeasurements(rollAngle, pitchAngle, yawAngle, previousRollAngle, 
     Bz = -B * np.sin(np.radians(i))
 
     # Convert angles to radians.
-    phiPrecedent = np.radians(previousRollAngle)
-    thetaPrecedent = np.radians(previousPitchAngle)
-    psiPrecedent = np.radians(previousYawAngle)
+    previousPhi = np.radians(previousRollAngle)
+    previousTheta = np.radians(previousPitchAngle)
+    previousPsi = np.radians(previousYawAngle)
 
     # Calculate angular rates.
-    d_phi = (phi - phiPrecedent) / Te
-    d_theta = (theta - thetaPrecedent) / Te
-    d_psi = (psi - psiPrecedent) / Te
+    d_phi = (phi - previousPhi) / Te
+    d_theta = (theta - previousTheta) / Te
+    d_psi = (psi - previousPsi) / Te
 
     Vmag_Rg = np.matrix([Bx, By, Bz])              # Magnetic field vector in the fixed frame.
     Vgyr_Rg = np.matrix([d_phi, d_theta, d_psi])   # Gyro measurements vector in the fixe frame.
