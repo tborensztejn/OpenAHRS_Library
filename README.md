@@ -53,5 +53,9 @@ To use OpenAHRS in your project, include the necessary header files in your sour
 # Contributing
 Contributions are welcome! If you would like to contribute to the project, please contact me.
 
+# Author
+Titouan BORENSZTEJN (french mechatronic engineer)
+Contact: borensztejn.titouan@gmail.com or openrtvc@gmail.com
+
 # Acknowledgments
 Special thanks to the open-source community and contributors for their valuable contributions.
