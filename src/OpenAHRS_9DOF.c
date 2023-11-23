@@ -134,8 +134,7 @@ uint8_t main(void) {
         }
         */
 
-        /* Davenport filter. */
-
+        /* Functionality of the Davenport filter validated. */
         for (uint16_t n = 0; n < niter; n++) {
             int8_t result;
 

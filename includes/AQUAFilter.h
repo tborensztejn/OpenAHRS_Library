@@ -23,6 +23,21 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+/*
+    References:
+
+    .. [Valenti2015] Valenti, R.G.; Dryanovski, I.; Xiao, J. Keeping a Good
+    Attitude: A Quaternion-Based Orientation Filter for IMUs and MARGs. Sensors
+    2015, 15, 19302-19330.
+    (https://res.mdpi.com/sensors/sensors-15-19302/article_deploy/sensors-15-19302.pdf)
+
+    .. [Valenti2016] R. G. Valenti, I. Dryanovski and J. Xiao, "A Linear Kalman
+    Filter for MARG Orientation Estimation Using the Algebraic Quaternion
+    Algorithm," in IEEE Transactions on Instrumentation and Measurement, vol.
+    65, no. 2, pp. 467-481, 2016.
+    (https://ieeexplore.ieee.org/document/7345567)
+*/
+
 #ifndef AQUA_FILTER_H
 #define AQUA_FILTER_H
 

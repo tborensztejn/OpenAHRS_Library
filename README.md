@@ -1,7 +1,7 @@
-# FreeAHRS
+# OpenAHRS
 
 # Overview
-FreeAHRS is an open-source project that provides a collection of functions for Attitude and Heading Reference System (AHRS) algorithms. The project is written in C and provides functionalities for quaternion manipulation, matrix operations, and raw sensor measurements processing.
+OpenAHRS is an open-source project that provides a collection of functions for Attitude and Heading Reference System (AHRS) algorithms. The project is written in C and provides functionalities for quaternion manipulation, matrix operations, and raw sensor measurements processing.
 
 # Table of Contents
 - License
@@ -48,7 +48,7 @@ Various filters and sensor fusion algorithms:
 - Davenport Q method filter
 
 # Usage
-To use FreeAHRS in your project, include the necessary header files in your source code. For more details on function usage, refer to the individual header files in the source code.
+To use OpenAHRS in your project, include the necessary header files in your source code. For more details on function usage, refer to the individual header files in the source code.
 
 # Contributing
 Contributions are welcome! If you would like to contribute to the project, please contact me.

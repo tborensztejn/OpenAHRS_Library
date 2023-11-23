@@ -23,6 +23,21 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+/*
+    References:
+
+    .. [Jia] Yan-Bin Jia. Quaternions. 2018.
+    (http://web.cs.iastate.edu/~cs577/handouts/quaternion.pdf)
+
+    .. [Sola] Solà, Joan. Quaternion kinematics for the error-state Kalman Filter.
+    October 12, 2017.
+    (http://www.iri.upc.edu/people/jsola/JoanSola/objectes/notes/kinematics.pdf)
+
+    .. [Zhao] F. Zhao and B.G.M. van Wachem. A novel Quaternion integration
+    approach for describing the behaviour of non-spherical particles.
+    (https://link.springer.com/content/pdf/10.1007/s00707-013-0914-2.pdf)
+*/
+
 #ifndef AR_FILTER_H
 #define AR_FILTER_H
 
