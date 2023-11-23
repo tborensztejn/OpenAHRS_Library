@@ -106,9 +106,9 @@ def main():
 	"""
 
 	with open('build/raw_measurements.csv', 'w', newline='') as FichierCSV:
-		#nomsColonnes = ['ax', 'ay', 'az', 'gx', 'gy', 'gz', 'mx', 'my', 'mz', 'phi', 'theta', 'psi']
-		nomsColonnes = ['ax', 'ay', 'az', 'gx', 'gy', 'gz', 'mx', 'my', 'mz'] # Define column names.
-		e = csv.DictWriter(FichierCSV, fieldnames=nomsColonnes)
+		#columnNames = ['ax', 'ay', 'az', 'gx', 'gy', 'gz', 'mx', 'my', 'mz', 'phi', 'theta', 'psi']
+		columnNames = ['ax', 'ay', 'az', 'gx', 'gy', 'gz', 'mx', 'my', 'mz'] # Define column names.
+		e = csv.DictWriter(FichierCSV, fieldnames=columnNames)
 		e.writeheader()
 
 		for n in range(niter):
