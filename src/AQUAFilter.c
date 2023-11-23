@@ -69,15 +69,17 @@ float AdaptiveGain(const float gain, const float Vect[3], const float firstTresh
 		//float magnitudeError = fabs(norm - magnitude) / magnitude;
         float magnitudeError = fabsf(norm - fabsf(magnitude)) / fabsf(magnitude);
 
+        // Check if magnitude error falls within the specified thresholds.
 		if (firstTreshold < magnitudeError && magnitudeError < secondTreshold) {
 			factor = (secondTreshold - magnitudeError) / firstTreshold;
 		}
 
+        // If magnitude error is below or equal to the first threshold, set factor to 1.0.
 		if (magnitudeError <= firstTreshold) {
 			factor = 1.0f;
 		}
 
-		ret = factor * gain;
+		ret = factor * gain;  // Calculate the final adaptive gain.
     }
 
 	return ret;
@@ -129,6 +131,7 @@ void UpdateAQUAFilter(
 	Normalize3DVector(mag);
 	Init3DVector(gyr, Gyr->p, Gyr->q, Gyr->r);
 
+    // Flags to check if sensor measurements are valid.
 	bool accOK = false;
 	bool magOK = false;
 	bool gyrOK = false;
@@ -339,7 +342,7 @@ void UpdateAQUAFilter(
 		float Racc[9];
 		InitMatrix(Racc, 3, 3);
 		QuaternionToDCM(qAcc, Racc);
-		//QuaternionToMatRot(qAcc, Racc);
+		//QuaternionToRotMatrix(qAcc, Racc);
 		Transpose(Racc, 3, 3);
 		float magRg[3];
 		Multiply(Racc, 3, 3, mag, 3, 1, magRg);
