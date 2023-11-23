@@ -88,7 +88,7 @@ def main():
 	pitch = [0, 1, 2, 3, 4, 5]
 	yaw = yawAmplitude * np.sin(2.0 * np.pi * yawFrequency * np.arange(niter) * Te)
 	yaw = np.zeros(niter)
-	yaw = [0, 2, 4, 6, 8, 10]
+	#yaw = [0, 2, 4, 6, 8, 10]
 
 	"""
 	r = np.empty_like(roll, dtype=object)
