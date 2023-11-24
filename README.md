@@ -25,19 +25,20 @@ Quaternion manipulation and operations:
 - Conjugation
 - Normalization
 - Multiplication
-- Conversion to Rotation Matrix
+- Conversion to rotation matrix
+- Conversion to DCM (Direct Cosine Matrix)
 - Conversion to Tait-Bryan Angles
 
 Matrix manipulation and operations:
 - Initialization
-- Identity Matrix
+- Identity matrix initialization
 - Copying
 - Addition
 - Subtraction
 - Multiplication
 - Transposition
 - Inversion
-- Eigenvalue and Eigenvector
+- Eigenvalues and Eigenvectors
 
 Sensor Measurements:
 - Structures for raw gyroscope, accelerometer, and magnetometer measurements
@@ -71,8 +72,10 @@ To use OpenAHRS in your project, include the necessary header files in your sour
 Contributions are welcome! If you would like to contribute to the project, please contact me.
 
 # Author
-Titouan BORENSZTEJN (french mechatronic engineer)
-Contact: borensztejn.titouan@gmail.com or openrtvc@gmail.com
+I'm Titouan BORENSZTEJN (french mechatronic engineer). You can contact me for any information about this project at <borensztejn.titouan@gmail.com> or <openrtvc@gmail.com>
+
+# Resources
+All the scientific and technical documentation and other resources are available with the project. However, some errors are hidden in the documents, often due to a lack of proofreading. The errors I have found are corrected in the PDF files. If you find any others, please share them. Thank you for your contribution.
 
 # Acknowledgments
 Special thanks to the open-source community and contributors for their valuable contributions.
