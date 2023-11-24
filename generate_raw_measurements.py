@@ -70,91 +70,91 @@ def GenerateRawMeasurements(rollAngle, pitchAngle, yawAngle, previousRollAngle, 
 
 def main():
     # Parameters.
-	Te = 0.004             # Sampling period in seconds.
-	niter = 6              # Number of samples to generate.
-	rollAmplitude = 10.0   # Roll amplitude in degrees.
-	rollFrequency = 0.2    # Roll frequency in Hz.
-	pitchAmplitude = -5.0  # Pitch amplitude in degrees.
-	pitchFrequency = 0.5   # Pitch frequency in Hz.
-	yawAmplitude = 15.0    # Yaw amplitude in degrees.
-	yawFrequency = 0.1     # Yaw frequency in Hz.
+    Te = 0.004             # Sampling period in seconds.
+    niter = 6              # Number of samples to generate.
+    rollAmplitude = 10.0   # Roll amplitude in degrees.
+    rollFrequency = 0.2    # Roll frequency in Hz.
+    pitchAmplitude = -5.0  # Pitch amplitude in degrees.
+    pitchFrequency = 0.5   # Pitch frequency in Hz.
+    yawAmplitude = 15.0    # Yaw amplitude in degrees.
+    yawFrequency = 0.1     # Yaw frequency in Hz.
 
     # Generate sinusoidal motion for roll, pitch, and yaw.
-	roll = rollAmplitude * np.sin(2.0 * np.pi * rollFrequency * np.arange(niter) * Te)
-	roll = np.zeros(niter)
-	roll = [0, 1, 2, 3, 4, 5]
-	pitch = pitchAmplitude * np.sin(2.0 * np.pi * pitchFrequency * np.arange(niter) * Te)
-	pitch = np.zeros(niter)
-	pitch = [0, 1, 2, 3, 4, 5]
-	yaw = yawAmplitude * np.sin(2.0 * np.pi * yawFrequency * np.arange(niter) * Te)
-	yaw = np.zeros(niter)
-	yaw = [0, 2, 4, 6, 8, 10]
+    roll = rollAmplitude * np.sin(2.0 * np.pi * rollFrequency * np.arange(niter) * Te)
+    roll = np.zeros(niter)
+    roll = [0, 1, 2, 3, 4, 5]
+    pitch = pitchAmplitude * np.sin(2.0 * np.pi * pitchFrequency * np.arange(niter) * Te)
+    pitch = np.zeros(niter)
+    pitch = [0, 1, 2, 3, 4, 5]
+    yaw = yawAmplitude * np.sin(2.0 * np.pi * yawFrequency * np.arange(niter) * Te)
+    yaw = np.zeros(niter)
+    yaw = [0, 2, 4, 6, 8, 10]
 
-	"""
-	r = np.empty_like(roll, dtype=object)
-	t = np.empty_like(pitch, dtype=object)
-	l = np.empty_like(yaw, dtype=object)
+    """
+    r = np.empty_like(roll, dtype=object)
+    t = np.empty_like(pitch, dtype=object)
+    l = np.empty_like(yaw, dtype=object)
 
-	for i in range(len(roulis)):
-		r[i] = "{:.3f}".format(roll[i])
-		t[i] = "{:.3f}".format(pitch[i])
-		l[i] = "{:.3f}".format(yaw[i])
+    for i in range(len(roulis)):
+        r[i] = "{:.3f}".format(roll[i])
+        t[i] = "{:.3f}".format(pitch[i])
+        l[i] = "{:.3f}".format(yaw[i])
 
-	print(r)
-	print(t)
-	print(l)
-	"""
+    print(r)
+    print(t)
+    print(l)
+    """
 
-	with open('build/raw_measurements.csv', 'w', newline='') as FichierCSV:
-		#columnNames = ['ax', 'ay', 'az', 'gx', 'gy', 'gz', 'mx', 'my', 'mz', 'phi', 'theta', 'psi']
-		columnNames = ['ax', 'ay', 'az', 'gx', 'gy', 'gz', 'mx', 'my', 'mz'] # Define column names.
-		e = csv.DictWriter(FichierCSV, fieldnames=columnNames)
-		e.writeheader()
+    with open('build/raw_measurements.csv', 'w', newline='') as FichierCSV:
+        #columnNames = ['ax', 'ay', 'az', 'gx', 'gy', 'gz', 'mx', 'my', 'mz', 'phi', 'theta', 'psi']
+        columnNames = ['ax', 'ay', 'az', 'gx', 'gy', 'gz', 'mx', 'my', 'mz'] # Define column names.
+        e = csv.DictWriter(FichierCSV, fieldnames=columnNames)
+        e.writeheader()
 
-		for n in range(niter):
+        for n in range(niter):
             # Generate raw measurements for each time step.
-			Vacc_Rs = None
-			Vmag_Rs = None
-			Vgyr_Rs = None
+            Vacc_Rs = None
+            Vmag_Rs = None
+            Vgyr_Rs = None
 
-			if n > 0:
-				Vacc_Rs, Vmag_Rs, Vgyr_Rs = GenerateRawMeasurements(roll[n], pitch[n], yaw[n], roll[n-1], pitch[n-1], yaw[n-1], Te)
-			else:
-				Vacc_Rs, Vmag_Rs, Vgyr_Rs = GenerateRawMeasurements(roll[n], pitch[n], yaw[n], 0.0, 0.0, 0.0, Te)
+            if n > 0:
+                Vacc_Rs, Vmag_Rs, Vgyr_Rs = GenerateRawMeasurements(roll[n], pitch[n], yaw[n], roll[n-1], pitch[n-1], yaw[n-1], Te)
+            else:
+                Vacc_Rs, Vmag_Rs, Vgyr_Rs = GenerateRawMeasurements(roll[n], pitch[n], yaw[n], 0.0, 0.0, 0.0, Te)
 
-			#Vgyr_Rs = np.zeros((3, 1))
+            #Vgyr_Rs = np.zeros((3, 1))
 
-			"""
-			ligne = {
-				'ax': format(Vacc_Rs[0, 0], '.3f'),
-				'ay': format(Vacc_Rs[1, 0], '.3f'),
-				'az': format(Vacc_Rs[2, 0], '.3f'),
-				'gx': format(Vgyr_Rs[0, 0], '.3f'),
-				'gy': format(Vgyr_Rs[1, 0], '.3f'),
-				'gz': format(Vgyr_Rs[2, 0], '.3f'),
-				'mx': format(Vmag_Rs[0, 0], '.3f'),
-				'my': format(Vmag_Rs[1, 0], '.3f'),
-				'mz': format(Vmag_Rs[2, 0], '.3f'),
-				'phi': format(roulis[n], '.3f'),
-				'theta': format(tangage[n], '.3f'),
-				'psi': format(lacet[n], '.3f')
-			}
-			"""
+            """
+            ligne = {
+                'ax': format(Vacc_Rs[0, 0], '.3f'),
+                'ay': format(Vacc_Rs[1, 0], '.3f'),
+                'az': format(Vacc_Rs[2, 0], '.3f'),
+                'gx': format(Vgyr_Rs[0, 0], '.3f'),
+                'gy': format(Vgyr_Rs[1, 0], '.3f'),
+                'gz': format(Vgyr_Rs[2, 0], '.3f'),
+                'mx': format(Vmag_Rs[0, 0], '.3f'),
+                'my': format(Vmag_Rs[1, 0], '.3f'),
+                'mz': format(Vmag_Rs[2, 0], '.3f'),
+                'phi': format(roulis[n], '.3f'),
+                'theta': format(tangage[n], '.3f'),
+                'psi': format(lacet[n], '.3f')
+            }
+            """
 
             # Write the measurements to the CSV file.
-			ligne = {
-				'ax': format(Vacc_Rs[0, 0], '.3f'),
-				'ay': format(Vacc_Rs[1, 0], '.3f'),
-				'az': format(Vacc_Rs[2, 0], '.3f'),
-				'gx': format(Vgyr_Rs[0, 0], '.3f'),
-				'gy': format(Vgyr_Rs[1, 0], '.3f'),
-				'gz': format(Vgyr_Rs[2, 0], '.3f'),
-				'mx': format(Vmag_Rs[0, 0], '.3f'),
-				'my': format(Vmag_Rs[1, 0], '.3f'),
-				'mz': format(Vmag_Rs[2, 0], '.3f')
-			}
+            ligne = {
+                'ax': format(Vacc_Rs[0, 0], '.3f'),
+                'ay': format(Vacc_Rs[1, 0], '.3f'),
+                'az': format(Vacc_Rs[2, 0], '.3f'),
+                'gx': format(Vgyr_Rs[0, 0], '.3f'),
+                'gy': format(Vgyr_Rs[1, 0], '.3f'),
+                'gz': format(Vgyr_Rs[2, 0], '.3f'),
+                'mx': format(Vmag_Rs[0, 0], '.3f'),
+                'my': format(Vmag_Rs[1, 0], '.3f'),
+                'mz': format(Vmag_Rs[2, 0], '.3f')
+            }
 
-			e.writerow(ligne)
+            e.writerow(ligne)
 
 if __name__ == "__main__":
 	main()
