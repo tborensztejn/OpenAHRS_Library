@@ -145,3 +145,7 @@ float DotProduct(const float *const VectA, const float *const VectB, const uint8
 
     return dotProduct;  // Return the calculated dot product.
 }
+
+void CrossProduct(const float *const VectA, const float *const VectB, float *VectC, const uint8_t m) {
+    // Some code here.
+}

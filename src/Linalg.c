@@ -83,6 +83,12 @@ float GetElement(const float *const Mat, const uint8_t m, const uint8_t n, const
     return ret; // Return the value of the specified element from the matrix.
 }
 
+uint8_t Index(const uint8_t n, const uint8_t row, const uint8_t column) {
+    uint8_t index = row * n + column;
+
+    return index;
+}
+
 /*
     Example of use:
 

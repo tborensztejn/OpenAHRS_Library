@@ -135,6 +135,7 @@ uint8_t main(void) {
         */
 
         /* Functionality of the Davenport filter validated. */
+        /*
         for (uint16_t n = 0; n < niter; n++) {
             int8_t result;
 
@@ -143,6 +144,25 @@ uint8_t main(void) {
             }
 
             UpdateDavenportQMethodFilter(&Acc, &Mag, Quat, PreviousQuat, Ts, w1, w2, g, mdip);
+            QuaternionToTaitBryanAngles(Quat, &Angles);
+            //PrintMatrix(Quat, 4, 1);
+
+            printf("X: %.3f\n", Degrees(Angles.phi));
+            printf("Y: %.3f\n", Degrees(Angles.theta));
+            printf("Z: %.3f\n", Degrees(Angles.psi));
+            printf("\n");
+        }
+        */
+
+        /* FAMC filter test. */
+        for (uint16_t n = 0; n < niter; n++) {
+            int8_t result;
+
+            if (fgets(line, sizeof(line), CSVFile) != NULL) {
+                result = sscanf(line, "%f,%f,%f,%f,%f,%f,%f,%f,%f", &Acc.ax, &Acc.ay, &Acc.az, &Gyr.p, &Gyr.q, &Gyr.r, &Mag.mx, &Mag.my, &Mag.mz);
+            }
+            
+            UpdateFAMCFilter(&Acc, &Mag, Quat);
             QuaternionToTaitBryanAngles(Quat, &Angles);
             //PrintMatrix(Quat, 4, 1);
 

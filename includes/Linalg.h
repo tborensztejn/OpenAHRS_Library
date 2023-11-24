@@ -47,6 +47,8 @@
 void SetElement(float *Mat, const uint8_t m, const uint8_t n, const uint8_t row, const uint8_t column, const float value);
 // This function is used to access a specific element of a matrix of size (m x n).
 float GetElement(const float *const Mat, const uint8_t m, const uint8_t n, const uint8_t row, const uint8_t column);
+// This function is used to get the index of a specific eleemnt of a matrix of size (m x n).
+uint8_t Index(const uint8_t n, const uint8_t row, const uint8_t column);
 
 /* Still in development */
 // Add a description here.

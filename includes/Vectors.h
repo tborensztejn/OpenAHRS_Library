@@ -54,5 +54,7 @@ void Normalize3DVector2(const float Vect[3], float NormalizedVect[3]);
 void OuterProduct(const float *const VectA, const float *const VectB, float *Mat, const uint8_t m);
 // This function is used to calculate the dot (scalar) product of two vectors (matrices of size (m x 1)).
 float DotProduct(const float *const VectA, const float *const VectB, const uint8_t m);
+// This function is used to calculate the cross product of two vectors (matrices of size (m x 1)).
+void CrossProduct(const float *const VectA, const float *const VectB, float *VectC, const uint8_t m);
 
 #endif
