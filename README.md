@@ -42,7 +42,7 @@ Matrix manipulation and operations:
 Sensor Measurements:
 - Structures for raw gyroscope, accelerometer, and magnetometer measurements
 
-Various filters and sensor fusion algorithms:
+Various filter, sensor fusion and orientation/attitude estimator algorithms:
 - AR (Angular Rate) based on Taylor series interpolation (Tested)
 - AQUA - Algebraic Quaternion Algorithm (Tested)
 - Davenport - Davenport's Q Method (Tested)
