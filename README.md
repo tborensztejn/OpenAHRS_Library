@@ -50,7 +50,6 @@ Various filter, sensor fusion and orientation/attitude estimator algorithms:
 
 
 Future algorithms:
-
 - FLAE - Fast Linear Attitude Estimator
 - EKF - Extended Kalman Filter
 - FNAE - Fourati’s Nonlinear Attitude Estimation)
