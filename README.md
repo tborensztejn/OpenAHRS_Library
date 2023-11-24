@@ -10,6 +10,7 @@ OpenAHRS is an open-source project that provides a collection of functions for A
 - Usage
 - Contributing
 - Authors
+- Resources
 - Acknowledgments
 
 # Licence
