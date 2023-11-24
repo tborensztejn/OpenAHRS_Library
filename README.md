@@ -49,7 +49,6 @@ Various filter, sensor fusion and orientation/attitude estimator algorithms:
 - Davenport - Davenport's Q Method (Tested)
 - FAMC - Fast Accelerometer-Magnetometer Combination (Tested)
 
-
 Future algorithms:
 - FLAE - Fast Linear Attitude Estimator
 - EKF - Extended Kalman Filter
