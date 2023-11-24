@@ -38,7 +38,8 @@ void UpdateFAMCFilter(const AccelerometerRawMeasurements* Acc, const Magnetomete
 
     // Declare a 3D vector of raw accelerometer measurements.
     float acc[3];                   // Raw measurements vector in body frame.
-    Init3DVector(acc, ax, ay, az);  // Store raw measurements into the vector.
+    //Init3DVector(acc, ax, ay, az);  // Store raw measurements into the vector.
+    Init3DVector(acc, -ax, -ay, -az);  // Store raw measurements into the vector.
     Normalize3DVector(acc);         // Normalize the vector (eq. 10).
 
     // Declare a 3D vector of raw magnetometer measurements.
@@ -50,13 +51,9 @@ void UpdateFAMCFilter(const AccelerometerRawMeasurements* Acc, const Magnetomete
     float mD = DotProduct(acc, mag, 3); // Check eq. 13.
     float mN = sqrt(1.0f - mD * mD);
 
-    printf("%f\n", mD);
-
     // Parameters of B matrix (eq. 18).
     float MatB[9];          // Declare the B matrix.
     InitMatrix(MatB, 3, 3); // Initialize the B matrix.
-
-    //PrintMatrix(MatB, 3, 3);
 
     /*
     SetElement(MatB, 3, 3, 0, 0, mN * mx);  // B11.
@@ -68,13 +65,13 @@ void UpdateFAMCFilter(const AccelerometerRawMeasurements* Acc, const Magnetomete
     SetElement(MatB, 3, 3, 2, 2, mD * mz + az);  // B33.
     */
 
-    SetElement(MatB, 3, 3, 0, 0, mN * mag[0]);  // B11.
-    SetElement(MatB, 3, 3, 1, 0, mN * mag[1]);  // B21.
-    SetElement(MatB, 3, 3, 2, 0, mN * mag[2]);  // B31.
+    SetElement(MatB, 3, 3, 0, 0, mN * mag[Index(1, 0, 0)]);  // B11.
+    SetElement(MatB, 3, 3, 1, 0, mN * mag[Index(1, 1, 0)]);  // B21.
+    SetElement(MatB, 3, 3, 2, 0, mN * mag[Index(1, 2, 0)]);  // B31.
 
-    SetElement(MatB, 3, 3, 0, 2, mD * mag[0] + acc[0]);  // B13.
-    SetElement(MatB, 3, 3, 1, 2, mD * mag[1] + acc[1]);  // B23.
-    SetElement(MatB, 3, 3, 2, 2, mD * mag[2] + acc[2]);  // B33.
+    SetElement(MatB, 3, 3, 0, 2, mD * mag[Index(1, 0, 0)] + acc[Index(1, 0, 0)]);  // B13.
+    SetElement(MatB, 3, 3, 1, 2, mD * mag[Index(1, 1, 0)] + acc[Index(1, 1, 0)]);  // B23.
+    SetElement(MatB, 3, 3, 2, 2, mD * mag[Index(1, 2, 0)] + acc[Index(1, 2, 0)]);  // B33.
 
     MultiplyScalar(MatB, 3, 3, 0.5f);
 
@@ -97,13 +94,6 @@ void UpdateFAMCFilter(const AccelerometerRawMeasurements* Acc, const Magnetomete
     SetElement(MatY, 3, 3, 0, 2, tau / element);
     */
 
-    /*
-    printf("%f\n", GetElement(MatB, 3, 3, 2, 2));
-    printf("%f\n", MatB[Index(3, 2, 2)]);
-    */
-
-    //PrintMatrix(MatB, 3, 3);
-
     alpha[Index(1, 0, 0)] = MatB[Index(3, 2, 2)] - MatB[Index(3, 0, 0)] + 1.0f;
     MatY[Index(3, 0, 0)] = -1.0f / alpha[Index(1, 0, 0)];
     MatY[Index(3, 0, 1)] = MatB[Index(3, 1, 0)] / alpha[Index(1, 0, 0)];
@@ -111,21 +101,21 @@ void UpdateFAMCFilter(const AccelerometerRawMeasurements* Acc, const Magnetomete
 
     // Second row of Y matrix (algorithm 1).
     alpha[Index(1, 1, 0)] = -MatB[Index(3, 1, 0)] * MatB[Index(3, 1, 0)] / alpha[Index(1, 0, 0)] + MatB[Index(3, 0, 0)] + MatB[Index(3, 2, 2)] + 1.0f;
-    MatY[Index(3, 1, 0)] = -MatB[Index(3, 1, 0)] / (alpha[Index(1, 0, 0)] + alpha[Index(1, 1, 0)]);
+    MatY[Index(3, 1, 0)] = -MatB[Index(3, 1, 0)] / (alpha[Index(1, 0, 0)] * alpha[Index(1, 1, 0)]);
     MatY[Index(3, 1, 1)] = -1.0f / alpha[Index(1, 1, 0)];
-    MatY[Index(3, 1, 2)] = (MatB[Index(3, 1, 2)] + MatB[Index(3, 1, 0)] * tau) / alpha[Index(1, 1, 0)];
+    MatY[Index(3, 1, 2)] = (MatB[Index(3, 1, 2)] + MatB[Index(3, 1, 0)] * tau / alpha[Index(1, 0, 0)]) / alpha[Index(1, 1, 0)];
 
     // Third row of Y matrix (algorithm 1).
-    alpha[Index(1, 2, 0)] = alpha[Index(1, 0, 0)] + tau * tau / alpha[Index(1, 0, 0)] + MatY[Index(3, 1, 2)] * MatY[Index(3, 1, 2)] / alpha[Index(1, 1, 0)];
-    MatY[Index(3, 2, 0)] = (tau/alpha[Index(1, 0, 0)] + MatB[Index(3, 1, 0)] * MatY[Index(3, 1, 2)] / alpha[Index(1, 0, 0)]) / alpha[Index(1, 2, 0)];
+    alpha[Index(1, 2, 0)] = alpha[Index(1, 0, 0)] - 2.0f + tau * tau / alpha[Index(1, 0, 0)] + MatY[Index(3, 1, 2)] * MatY[Index(3, 1, 2)] * alpha[Index(1, 1, 0)];
+    MatY[Index(3, 2, 0)] = (tau / alpha[Index(1, 0, 0)] + MatB[Index(3, 1, 0)] * MatY[Index(3, 1, 2)] / alpha[Index(1, 0, 0)]) / alpha[Index(1, 2, 0)];
     MatY[Index(3, 2, 1)] = MatY[Index(3, 1, 2)] / alpha[Index(1, 2, 0)];
     MatY[Index(3, 2, 2)] = 1.0f / alpha[Index(1, 2, 0)];
 
     // Quaternion elements (eq. 21).
     float a = MatB[Index(3, 1, 2)] * (MatY[Index(3, 0, 0)] + MatY[Index(3, 0, 1)] * (MatY[Index(3, 1, 2)] * MatY[Index(3, 2, 0)] + MatY[Index(3, 1, 0)]) + MatY[Index(3, 0, 2)] * MatY[Index(3, 2, 0)]) - (MatB[Index(3, 0, 2)] - MatB[Index(3, 2, 0)]) * (MatY[Index(3, 1, 2)] * MatY[Index(3, 2, 0)] + MatY[Index(3, 1, 0)]) - MatY[Index(3, 2, 0)] * MatB[Index(3, 1, 0)];
     float b = MatB[Index(3, 1, 2)] * (MatY[Index(3, 0, 1)] * (MatY[Index(3, 1, 2)] * MatY[Index(3, 2, 1)] + MatY[Index(3, 1, 1)]) + MatY[Index(3, 0, 2)] * MatY[Index(3, 2, 1)]) - (MatB[Index(3, 0, 2)] - MatB[Index(3, 2, 0)]) * (MatY[Index(3, 1, 2)] * MatY[Index(3, 2, 1)] + MatY[Index(3, 1, 1)]) - MatY[Index(3, 2, 1)] * MatB[Index(3, 1, 0)];
-    float c = MatB[Index(3, 1, 2)] * (MatY[Index(3, 0, 1)] * MatY[Index(3, 1, 2)] * MatY[Index(3, 2, 2)]  + MatY[Index(3, 0, 2)] * MatY[Index(3, 2, 2)]) - (MatB[Index(3, 0, 2)] - MatB[Index(3, 2, 0)]) * (MatY[Index(3, 1, 2)] * MatY[Index(3, 2, 2)]) - MatY[Index(3, 2, 2)] * MatB[Index(3, 1, 0)];
+    float c = MatB[Index(3, 1, 2)] * (MatY[Index(3, 0, 1)] * MatY[Index(3, 1, 2)] * MatY[Index(3, 2, 2)] + MatY[Index(3, 0, 2)] * MatY[Index(3, 2, 2)]) - (MatB[Index(3, 0, 2)] - MatB[Index(3, 2, 0)]) * (MatY[Index(3, 1, 2)] * MatY[Index(3, 2, 2)]) - MatY[Index(3, 2, 2)] * MatB[Index(3, 1, 0)];
 
-    InitQuaternion(Quat, -1.0f, a, b, c);   // Check eq. 22.
+    InitQuaternion(Quat, 1.0f, a, b, c);    // Check eq. 22.
     NormalizeQuaternion(Quat);              // Check eq. 23.
 }
