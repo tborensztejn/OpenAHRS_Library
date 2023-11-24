@@ -32,8 +32,8 @@
 
 typedef struct {
     float phi;         // Roll angle (X axis).
-	float theta;       // Pitch angle (Y axis).
-	float psi;         // Yaw angle (Z axis).
+    float theta;       // Pitch angle (Y axis).
+    float psi;         // Yaw angle (Z axis).
 } TaitBryanAngles;
 
 /*** Declaration of function prototypes for quaternion manipulation. ***/
