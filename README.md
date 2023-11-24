@@ -43,9 +43,27 @@ Sensor Measurements:
 - Structures for raw gyroscope, accelerometer, and magnetometer measurements
 
 Various filters and sensor fusion algorithms:
-- Angular Rate filter
-- AQUA (Algebraic Quaternion) filter
-- Davenport Q method filter
+- AR (Angular Rate) based on Taylor series interpolation (Tested)
+- AQUA - Algebraic Quaternion Algorithm (Tested)
+- Davenport's Q Method (Tested)
+- FAMC - Fast Accelerometer-Magnetometer Combination (Tested)
+
+
+Future algorithms:
+
+- FLAE - Fast Linear Attitude Estimator
+- EKF - Extended Kalman Filter
+- FNAE - Fourati’s Nonlinear Attitude Estimation)
+- FQA - Factored Quaternion Algorithm
+- MOF - Madgwick's Orientation Filter
+- MOF2 - Mahony's Orientation Filter
+- OLEQ - Optimal Linear Estimator of Quaternion
+- QUEST - Quaternion Estimator
+- MEKF - Multiplicative Extended Kalman Filter
+- IEKF - Invariant Extended Kalman Filter
+- EF - Equivariant Filter
+- PF - Particle Filter (Euler angles, DCM and quaternion)
+- VQF - Versatile Quaternion-based Filter
 
 # Usage
 To use OpenAHRS in your project, include the necessary header files in your source code. For more details on function usage, refer to the individual header files in the source code.
