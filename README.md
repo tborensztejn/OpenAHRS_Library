@@ -45,7 +45,7 @@ Sensor Measurements:
 Various filters and sensor fusion algorithms:
 - AR (Angular Rate) based on Taylor series interpolation (Tested)
 - AQUA - Algebraic Quaternion Algorithm (Tested)
-- Davenport's Q Method (Tested)
+- Davenport - Davenport's Q Method (Tested)
 - FAMC - Fast Accelerometer-Magnetometer Combination (Tested)
 
 
