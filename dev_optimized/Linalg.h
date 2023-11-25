@@ -65,5 +65,17 @@ typedef struct {
 bool SetElement(Matrix *Mat, const uint8_t row, const uint8_t col, const float value);
 // This function is used to access a specific element of a matrix of size (m x n).
 float GetElement(const Matrix *const Mat, const uint8_t row, const uint8_t col);
+// This function is used to fill an entire matrix of size (m x n) with a given value.
+bool FillMatrix(Matrix *Mat, const float value);
+// This function is used to fill a square matrix of size (m x m) with the identity matrix.
+bool FillIdentityMatrix(Matrix *Mat);
+// This function is used to check is a matrix is square or not.
+bool IsSquare(const Matrix *const Mat, bool *error);
+
+/*** Declarations of function prototypes of fundamental matrix calculation functions. ***/
+
+
+/*** Declaration of function prototypes for advanced matrix calculation functions. ***/
+
 
 #endif
