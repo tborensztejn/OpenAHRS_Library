@@ -64,7 +64,7 @@ typedef struct {
 // This function is used to assign a value to a specific element of a matrix of size (m x n).
 bool SetElement(Matrix *Mat, const uint8_t row, const uint8_t col, const float value);
 // This function is used to access a specific element of a matrix of size (m x n).
-float GetElement(const Matrix *const Mat, const uint8_t row, const uint8_t col);
+float GetElement(const Matrix *const Mat, const uint8_t row, const uint8_t col, bool *error);
 // This function is used to fill an entire matrix of size (m x n) with a given value.
 bool FillMatrix(Matrix *Mat, const float value);
 // This function is used to fill a square matrix of size (m x m) with the identity matrix.
