@@ -1,48 +1,90 @@
 #include "Linalg.h"
 #include "../includes/Utils.h"
 
-#define MATRIX_INITIALIZER { \
-    .rows = 0, \
-    .cols = 0, \
-    .elements = {0}, \
-    .initialized = false \
-} \
+// Add an example here.
+Matrix InitMatrix(Matrix *Mat, const uint8_t rows, const uint8_t cols) {
+    if (Mat != NULL) {
+        if (!Mat->initialized) {
+            Mat->rows = rows;
+            Mat->cols = cols;
+            Mat->initialized = true;
+        } else {
+            // The matrix passed as a parameter to the function via a pointer has already been initialized.
+            // Some code here.
+        }
+    } else {
+        //Matrix NewMatrix = MATRIX_INITIALIZER;
+        CreateMatrix(NewMatrix);
 
-#define VECTOR_INITIALIZER { \
-    .rows = 0, \
-    .elements = {0}, \
-    .initialized = false \
-} \
+        NewMatrix.rows = rows;
+        NewMatrix.cols = cols;
+        NewMatrix.initialized = true;
 
-#define MAX_M   4   // Maximum number of rows in a matrix.
-#define MAX_N   4   // Maximum number of columns in a matrix.
+        return NewMatrix;
+    }
+}
 
-typedef struct {
-    uint8_t rows;
-    uint8_t cols;
-    float elements[MAX_M * MAX_N];
-    bool initialized;
-} Matrix;
+// Add an example here.
+bool SetElement(Matrix *Mat, const uint8_t row, const uint8_t col, const float value) {
+    bool error = true;
 
-typedef struct {
-    uint8_t rows;
-    float elements[MAX_M];
-} Vector;
+    // If the pointer is not NULL.
+    if (Mat != NULL) {
+        // If the matrix is initialized.
+        if (Mat->initialized) {
+            Mat->elements[row * Mat->cols + col] = value;   // Set the value of the specified element in the matrix.
+            error = false;
+        } else {
+            // Some code here.
+        }
+    } else {
+        // Some code here.
+    }
 
-Matrix InitMatrix(const uint8_t rows, const uint8_t cols) {
-    Matrix NewMatrix = MATRIX_INITIALIZER;
+    return error;
+}
 
-    NewMatrix.rows = rows;
-    NewMatrix.cols = cols;
+// Add an example here.
+float GetElement(const Matrix *const Mat, const uint8_t row, const uint8_t col) {
+    float element;  // Declare the variable that will store the returned value.
 
-    return NewMatrix;
+    // If the pointer is not NULL.
+    if (Mat != NULL) {
+        // If the matrix is initialized.
+        if (Mat->initialized) {
+            element = Mat->elements[row * Mat->cols + col];   // Retrieve the value of the specified element from the matrix.
+        } else {
+            element = NAN;
+        }
+    } else {
+        element = NAN;
+    }
+
+    return element; // Return the value of the specified element from the matrix.
+}
+
+// Add an example here.
+void FillMatrix(Matrix *Mat, const float value) {
+    if (Mat->initialized) {
+        for (uint8_t row = 0; row < Mat->rows; row++) {
+            for (uint8_t col = 0; col < Mat->cols; col++) {
+                SetElement(Mat, row, col, value);
+            }
+        }
+    } else {
+        // Some code here.
+    }
 }
 
 int main() {
     const uint8_t rows = 3;
     const uint8_t cols = 3;
 
-    Matrix Mat = InitMatrix(rows, cols);
+    Matrix Mat1 = InitMatrix(NULL, rows, cols);
+    printf("%d\n", Mat1.initialized);
+    CreateMatrix(Mat2);
+    InitMatrix(&Mat2, rows, cols);
+    printf("%d\n", Mat2.initialized);
 
     // Some code here.
 

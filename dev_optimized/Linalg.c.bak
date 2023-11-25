@@ -1,0 +1,54 @@
+#include "Linalg.h"
+#include "../includes/Utils.h"
+
+// Add an example here.
+Matrix InitMatrix(const uint8_t rows, const uint8_t cols) {
+    //Matrix NewMatrix = MATRIX_INITIALIZER;
+    CreateMatrix(NewMatrix);
+
+    NewMatrix.rows = rows;
+    NewMatrix.cols = cols;
+    //NewMatrix.initialized = true;
+
+    return NewMatrix;
+}
+
+// Add an example here.
+float GetElement(const Matrix *const Mat, const uint8_t row, const uint8_t col) {
+    float element = Mat->elements[row * Mat->cols + col];   // Retrieve the value of the specified element from the matrix.
+
+    return element; // Return the value of the specified element from the matrix.
+}
+
+// Add an example here.
+void SetElement(Matrix *Mat, const uint8_t row, const uint8_t col, const float value) {
+    Mat->elements[row * Mat->cols + col] = value;   // Set the value of the specified element in the matrix.
+}
+
+// Add an example here.
+void FillMatrix(Matrix *Mat, const float value) {
+    if (Mat->initialized) {
+        for (uint8_t row = 0; row < Mat->rows; row++) {
+            for (uint8_t col = 0; col < Mat->cols; col++) {
+                SetElement(Mat, row, col, value);
+            }
+        }
+    } else {
+        // Some code here.
+    }
+}
+
+int main() {
+    const uint8_t rows = 3;
+    const uint8_t cols = 3;
+
+    CreateMatrix(Test);
+    //Matrix Test;
+    printf("%d\n", Test.initialized);
+
+    Matrix Mat = InitMatrix(rows, cols);
+
+    // Some code here.
+
+    return 0;
+}
