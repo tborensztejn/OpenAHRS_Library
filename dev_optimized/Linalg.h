@@ -72,6 +72,8 @@ bool FillIdentityMatrix(Matrix *Mat);
 // This function is used to check is a matrix is square or not.
 bool IsSquare(const Matrix *const Mat, bool *error);
 
+bool PrintMatrix(const Matrix *const Mat);
+
 /*** Declarations of function prototypes of fundamental matrix calculation functions. ***/
 
 
