@@ -174,7 +174,7 @@ bool AreSameSize(const Matrix *const MatA, const Matrix *const MatB, bool *error
         // Check if the pointer to the matrix B is not null.
         if (MatB != NULL) {
             // Check if the matrix A is initialized.
-            if (MatA->initialized && MatB->initialized) {
+            if (MatA->initialized) {
                 // Check if the matrix B is initialized.
                 if (MatB->initialized) {
                     // Check if matrix A has the same number of rows as matrix B.
@@ -209,52 +209,58 @@ bool AreSameSize(const Matrix *const MatA, const Matrix *const MatB, bool *error
     }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
+// Add an example here.
 void CopyMatrix(const Matrix *const MatA, Matrix *MatB) {
     bool error = true;
 
-    // Check that both pointers are not null.
-    if (MatA != NULL && MatB != NULL) {
-        // Check if the matrices A and B are initialized.
-        if (MatA->initialized && MatB->initialized) {
-                // Check if matrices A and B have the same dimensions.
-                if (AreSameSize(MatA, MatB, &error)) {
-                    if (!error) {
-                        // Iterate through each element and copy it from MatA to MatB.
-                        for (uint8_t row = 0; row < MatA->rows; row++) {
-                            for (uint8_t col = 0; col < MatA->cols; col++) {
-                                float element = GetElement(MatA, row, col);
-                                error = SetElement(MatB, row, col, element);
+    // Check if the pointer to the matrix A is not null.
+    if (MatA != NULL) {
+        // Check if the pointer to the matrix B is not null.
+        if (MatB != NULL) {
+            // Check if the matrix A is initialized.
+            if (MatA->initialized) {
+                // Check if the matrix B is initialized.
+                if (MatB->initialized) {
+                    // Check if matrices A and B have the same dimensions.
+                    if (AreSameSize(MatA, MatB, &error)) {
+                        if (!error) {
+                            // Iterate through each element and copy it from matrix A to matrix B.
+                            for (uint8_t row = 0; row < MatA->rows; row++) {
+                                for (uint8_t col = 0; col < MatA->cols; col++) {
+                                    float element = GetElement(MatA, row, col);
+                                    error = SetElement(MatB, row, col, element);
+                                }
                             }
+                        } else {
+                            // An error was encountered when checking if the dimensions of the matrices A and B are the same or not.
+                            // Some code here.
                         }
                     } else {
-                        // An error occurred when checking the dimensions of the matrices.
+                        // The matrices A and B do not have the same dimensions.
                         // Some code here.
                     }
                 } else {
-                    // The matrices A and B do not have the same dimensions.
+                    // The matrix B is not initialized.
                     // Some code here.
                 }
+            } else {
+                // The matrix A is not initialized.
+                // Some code here.
+            }
         } else {
-            // One of the two matrices has not been initialized.
+            // The pointer to the matrix B is null.
             // Some code here.
         }
     } else {
-        // One of the two pointers is null.
+        // The pointer to the matrix A is null.
         // Some code here.
     }
 }
+
+
+
+
+
 
 
 
