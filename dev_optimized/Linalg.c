@@ -210,7 +210,7 @@ bool AreSameSize(const Matrix *const MatA, const Matrix *const MatB, bool *error
 }
 
 // Add an example here.
-void CopyMatrix(const Matrix *const MatA, Matrix *MatB) {
+bool CopyMatrix(const Matrix *const MatA, Matrix *MatB) {
     bool error = true;
 
     // Check if the pointer to the matrix A is not null.
@@ -255,6 +255,8 @@ void CopyMatrix(const Matrix *const MatA, Matrix *MatB) {
         // The pointer to the matrix A is null.
         // Some code here.
     }
+
+    return error;
 }
 
 
