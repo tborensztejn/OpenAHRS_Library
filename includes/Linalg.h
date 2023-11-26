@@ -85,7 +85,7 @@ void InitIdentityMatrix(float *Mat, const uint8_t m);
 void CopyMatrix(const float *const MatA, float *MatB, const uint8_t m, const uint8_t n);
 // This function is used to check whether two matrices are identical/equal or not.
 bool IsEqual(const float *const MatA, const float *const MatB, const uint8_t m, const uint8_t n, const float deviation);
-// This function is used ti diplay a matrix of size (m x n).
+// This function is used to diplay a matrix of size (m x n).
 void PrintMatrix(const float *const Mat, const uint8_t m, const uint8_t n);
 
 /*** Declarations of function prototypes of fundamental matrix calculation functions. ***/
