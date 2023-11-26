@@ -49,6 +49,7 @@ bool SetVectorElement(Vector *Vect, const uint8_t row, const float value) {
     return error;   // Return the error status.
 }
 
+// Add an example here.
 float GetVectorElement(const Vector *const Vect, const uint8_t row, bool *error) {
     float element;  // Declare the variable that will store the returned value.
     *error = true;  // Initialize the error to true.
