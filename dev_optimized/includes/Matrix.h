@@ -29,6 +29,8 @@ typedef struct {
 
 /*** Declaration of basic function prototypes for matrix manipulation. ***/
 
+// This function is used to check if the index is valid (number of lines less than or equal to MAX_M and number of columns less than or equal to MAX_N) to avoid buffer overflow.
+bool CheckMatrixIndex(const uint8_t row, const uint8_t col);
 // This function is used to initialise a matrix of size (m x n) by assigning a value of 0 to each element.
 Matrix InitMatrix(Matrix *Mat, const uint8_t rows, const uint8_t cols);
 // This function is used to assign a value to a specific element of a matrix of size (m x n).
