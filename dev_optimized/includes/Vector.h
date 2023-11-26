@@ -29,7 +29,7 @@ typedef struct {
 /*** Declaration of basic function prototypes for vector manipulation. ***/
 
 // This function is used to initialise a vector of size (m x 1) by assigning a value of 0 to each element.
-Vector InitVector(Vector *Vect, const uint8_t rows);
+Vector InitVector(Vector *Vect, const uint8_t rows, bool *error);
 // This function is used to assign a value to a specific element of a vector of size (m x 1).
 bool SetVectorElement(Vector *Vect, const uint8_t row, const float value, const bool check);
 // This function is used to access a specific element of a vector of size (m x 1).
@@ -37,13 +37,13 @@ float GetVectorElement(const Vector *const Vect, const uint8_t row, bool *error,
 // This function is used to fill an entire vector of size (m x 1) with a given value.
 bool FillVector(Vector *Vect, const float value, const bool check);
 // This function is used to duplicate/copy a vector of size (m x 1).
-bool CopyVector(const Vector *const VectA, Vector *VectB);
+bool CopyVector(const Vector *const VectA, Vector *VectB, const bool check);
 // This function is used to check if two vectors are identical/equal or not.
-bool AreEqualV(const Vector *const VectA, const Vector *const VectB, bool *error, const float deviation);
+bool AreEqualV(const Vector *const VectA, const Vector *const VectB, bool *error, const float deviation, const bool check);
 // This function is used to check if two vectors have the same number of rows.
-bool AreSameSizeV(const Vector *const VectA, const Vector *const VectB, bool *error);
+bool AreSameSizeV(const Vector *const VectA, const Vector *const VectB, bool *error, const bool check);
 // This function is used to diplay a vector of size (m x 1).
-bool PrintVector(const Vector *const Mat);
+bool PrintVector(const Vector *const Vect, const bool check);
 
 /*** Declarations of function prototypes of fundamental vector calculation functions. ***/
 // Some code here.

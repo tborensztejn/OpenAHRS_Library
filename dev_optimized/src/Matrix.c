@@ -196,9 +196,8 @@ bool CopyMatrix(const Matrix *const MatA, Matrix *MatB) {
 
 // Add an example here.
 bool AreEqualM(const Matrix *const MatA, const Matrix *const MatB, bool *error, const float deviation) {
-    bool AreEqualM = false;    // Initialize the result to false.
-
-    *error = true;
+    bool areEqual = false;  // Initialize the result to false.
+    *error = true;          // Initialize the error to true.
 
     // Check if the pointer to the matrix A is not null.
     if (MatA != NULL) {
@@ -214,15 +213,15 @@ bool AreEqualM(const Matrix *const MatA, const Matrix *const MatB, bool *error, 
                         for (uint8_t row = 0; row < MatA->rows; row++) {
                             for (uint8_t col = 0; col < MatA->cols; col++) {
                                 // Need a small update here.
-                                AreEqualM = CloseAll(GetMatrixElement(MatA, row, col, error), GetMatrixElement(MatB, row, col, error), deviation);
+                                areEqual = CloseAll(GetMatrixElement(MatA, row, col, error), GetMatrixElement(MatB, row, col, error), deviation);
 
-                                if (!AreEqualM) {
+                                if (!areEqual) {
                                     // There's no need to go on. The two matrices are different.
                                     break;
                                 }
                             }
 
-                            if (!AreEqualM) {
+                            if (!areEqual) {
                                 // There's no need to go on. The two matrices are different.
                                 break;
                             }
@@ -248,7 +247,7 @@ bool AreEqualM(const Matrix *const MatA, const Matrix *const MatB, bool *error, 
         // Some code here.
     }
 
-    return AreEqualM; // Return the result indicating if the matrices are equal.
+    return areEqual; // Return the result indicating if the matrices are equal.
 }
 
 // Add an example here.
@@ -279,7 +278,7 @@ bool IsSquare(const Matrix *const Mat, bool *error) {
 
 // Add an example here.
 bool AreSameSizeM(const Matrix *const MatA, const Matrix *const MatB, bool *error) {
-    bool AreSameSizeM = false;   // Initialize the result to false.
+    bool areSameSize = false;  // Initialize the result to false.
     *error = true;              // Initialize the error to true.
 
     // Check if the pointer to the matrix A is not null.
@@ -294,7 +293,7 @@ bool AreSameSizeM(const Matrix *const MatA, const Matrix *const MatB, bool *erro
                     if (MatA->rows == MatB->rows) {
                         // Check if matrix A has the same number of columns as matrix B.
                         if (MatA->cols == MatB->cols) {
-                            AreSameSizeM = true;
+                            areSameSize = true;
                             *error = false;
                         } else {
                             // The matrix A has not the same number of columns as matrix B.
@@ -321,7 +320,7 @@ bool AreSameSizeM(const Matrix *const MatA, const Matrix *const MatB, bool *erro
         // Some code here.
     }
 
-    return AreSameSizeM;
+    return areSameSize;
 }
 
 // Add an example here.
