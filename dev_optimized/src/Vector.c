@@ -16,7 +16,7 @@ Vector InitVector(Vector *Vect, const uint8_t rows, bool *error) {
                 *error = false;
             } else {
                 // The vector passed as a parameter to the function via a pointer has already been initialized.
-                printf("The vector passed as a parameter to the function via a pointer has already been initialized.\n");
+                printf("The vector passed as a parameter to the function via a pointer has already been initialized (1).\n");
                 // Some code here.
             }
         } else {
@@ -33,7 +33,7 @@ Vector InitVector(Vector *Vect, const uint8_t rows, bool *error) {
         }
     } else {
         // The numbers of rows of the vector will exceed M_MAX.
-        printf("The numbers of rows of the vector will exceed M_MAX.\n");
+        printf("The numbers of rows of the vector will exceed M_MAX (2).\n");
         // Some code here.
     }
 }
@@ -55,22 +55,22 @@ bool SetVectorElement(Vector *Vect, const uint8_t row, const float value, const 
                         error = false;                  // Set the error to false.
                     } else {
                         // The value is not valid.
-                        printf("The value is not valid.\n");
+                        printf("The value is not valid (3).\n");
                         // Some code here.
                     }
                 } else {
                     // The vector is not initialized.
-                    printf("The vector is not initialized.\n");
+                    printf("The vector is not initialized (4).\n");
                     // Some code here.
                 }
             } else {
                 // The pointer is null.
-                printf("The pointer is null.\n");
+                printf("The pointer is null (5).\n");
                 // Some code here.
             }
         } else {
             // The row do not exists.
-            printf("The row do not exists.\n");
+            printf("The row do not exists (6).\n");
             // Some code here.
         }
     } else {
@@ -81,7 +81,7 @@ bool SetVectorElement(Vector *Vect, const uint8_t row, const float value, const 
             error = false;                  // Set the error to false.
         } else {
             // The value is not valid.
-            printf("The value is not valid.\n");
+            printf("The value is not valid (7).\n");
             // Some code here.
         }
     }
@@ -102,27 +102,43 @@ float GetVectorElement(const Vector *const Vect, const uint8_t row, bool *error,
                 // Check if the vector is initialized.
                 if (Vect->initialized) {
                     element = Vect->elements[row];  // Retrieve the value of the specified element from the vector.
-                    *error = false;                 // Set the error to false.
+
+                    // Check if the element is valid.
+                    if (!isnan(element)) {
+                        *error = false; // Set the error to false.
+                    } else {
+                        // The element is not valid.
+                        printf("The value is not valid (8).\n");
+                        // Some code here.
+                    }
                 } else {
                     // The vector is not initialized.
-                    printf("The vector is not initialized.\n");
+                    printf("The vector is not initialized (9).\n");
                     element = NAN;
                 }
             } else {
                 // The pointer is null.
-                printf("The pointer is null.\n");
+                printf("The pointer is null (10).\n");
                 element = NAN;
             }
         } else {
             // The row do not exists.
-            printf("The row do not exists.\n");
+            printf("The row do not exists (11).\n");
             element = NAN;
             // Some code here.
         }
     } else {
         // Bypassing the routine checks.
         element = Vect->elements[row];  // Retrieve the value of the specified element from the vector.
-        *error = false;                 // Set the error to false.
+
+        // Check if the element is valid.
+        if (!isnan(element)) {
+            *error = false; // Set the error to false.
+        } else {
+            // The element is not valid.
+            printf("The value is not valid (12).\n");
+            // Some code here.
+        }
     }
 
     return element; // Return the value of the specified element from the vector.
@@ -142,18 +158,27 @@ bool FillVector(Vector *Vect, const float value, const bool check) {
                     // Assign the value to each element of the vector.
                     for (uint8_t row = 0; row < Vect->rows; row++) {
                         error = SetVectorElement(Vect, row, value, NO_CHECK);
+
+                        if (error) {
+                            // There's no need to go on.
+                            printf("There's no need to go on (13).\n");
+                            break;
+                        }
                     }
                 } else {
                     // The vector is not initialized.
+                    printf("The vector is not initialized (14).\n");
                     // Some code here.
                 }
             } else {
                 // The pointer is null.
+                printf("The pointer is null. (15).\n");
                 // Some code here.
             }
 
         } else {
             // The row do not exists.
+            printf("The row do not exists. (16).\n");
             // Some code here.
         }
     } else {
@@ -161,6 +186,12 @@ bool FillVector(Vector *Vect, const float value, const bool check) {
         // Assign the value to each element of the vector.
         for (uint8_t row = 0; row < Vect->rows; row++) {
             error = SetVectorElement(Vect, row, value, NO_CHECK);
+
+            if (error) {
+                // There's no need to go on.
+                printf("There's no need to go on (17).\n");
+                break;
+            }
         }
     }
 
