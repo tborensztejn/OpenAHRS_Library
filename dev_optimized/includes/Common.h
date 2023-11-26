@@ -16,13 +16,23 @@
 /*
     Notes:
 
+    A number of checks are carried out to ensure correct operation.
+    Some steps may be redundant. To optimise operation, they can be deactivated.
+*/
+
+#define CHECK       1   // Enables verification steps.
+#define NO_CHECK    0   // Disables verification steps.
+
+/*
+    Notes:
+
     To avoid the use of dynamic allocation on systems with few resources,
     such as those used in embedded systems, the dimensions of the matrix
     and the vector are fixed and capped.
 */
 
-#define MAX_M   4   // Maximum number of rows in a matrix and a vector.
-#define MAX_N   4   // Maximum number of columns in a matrix.
+#define MAX_M   4       // Maximum number of rows in a matrix and a vector.
+#define MAX_N   4       // Maximum number of columns in a matrix.
 
 /*** Declaration of function prototypes. ***/
 

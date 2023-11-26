@@ -31,11 +31,11 @@ typedef struct {
 // This function is used to initialise a vector of size (m x 1) by assigning a value of 0 to each element.
 Vector InitVector(Vector *Vect, const uint8_t rows);
 // This function is used to assign a value to a specific element of a vector of size (m x 1).
-bool SetVectorElement(Vector *Vect, const uint8_t row, const float value);
+bool SetVectorElement(Vector *Vect, const uint8_t row, const float value, const bool check);
 // This function is used to access a specific element of a vector of size (m x 1).
-float GetVectorElement(const Vector *const Vect, const uint8_t row, bool *error);
+float GetVectorElement(const Vector *const Vect, const uint8_t row, bool *error, const bool check);
 // This function is used to fill an entire vector of size (m x 1) with a given value.
-bool FillVector(Vector *Vect, const float value);
+bool FillVector(Vector *Vect, const float value, const bool check);
 // This function is used to duplicate/copy a vector of size (m x 1).
 bool CopyVector(const Vector *const VectA, Vector *VectB);
 // This function is used to check if two vectors are identical/equal or not.
