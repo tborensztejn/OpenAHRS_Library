@@ -2,9 +2,9 @@
 
 // Add an example here.
 Vector InitVector(Vector *Vect, const uint8_t rows, bool *error) {
-    *error = true;  // Initialize the error flag to true.
+    *error = true;  // Set the error flag to true.
 
-    // The routine checks that the pointer to the vector is not zero, that the vector is initialised and that there is no buffer overflow.
+    // The routine checks that the pointer to the vector is not null, that the vector is initialised and that there is no buffer overflow.
 
     // Check if the pointer is not null.
     if (Vect != NULL) {
@@ -86,7 +86,7 @@ bool SetVectorElement(Vector *Vect, const uint8_t row, const float value, const 
             // Some code here.
         }
     } else {
-        // Bypassing the routine checks.
+        // Bypassing the routine verifications.
         // Check if the value is valid.
         if (!isnan(value)) {
             Vect->elements[row] = value;    // Set the value of the specified element in the vector.
@@ -143,7 +143,7 @@ float GetVectorElement(const Vector *const Vect, const uint8_t row, bool *error,
             element = NAN;
         }
     } else {
-        // Bypassing the routine checks.
+        // Bypassing the routine verifications.
         element = Vect->elements[row];  // Retrieve the value of the specified element from the vector.
 
         // Check if the element is valid.
@@ -175,17 +175,19 @@ bool FillVector(Vector *Vect, const float value, const bool check) {
                 if (IsValidRow(Vect->rows)) {
                     // Assign the value to each element of the vector.
                     for (uint8_t row = 0; row < Vect->rows; row++) {
+                        // There is not need to check if the value is valid.
+                        // Even if NO_ROUTINE_CHECK is used when calling SetVectorElement(), the function still returns an error if the value is invalid.
                         error = SetVectorElement(Vect, row, value, NO_ROUTINE_CHECK);
 
                         if (error) {
-                            // There's no need to go on.
-                            printf("There's no need to go on (16).\n");
+                            // There is no need to go on.
+                            printf("There is no need to go on (16).\n");
                             break;
                         }
                     }
                 } else {
-                    // The row does not exist.
-                    printf("The row does not exist (15).\n");
+                    // The number of rows of the vector exceeds M_MAX.
+                    printf("The number of rows of the vector exceeds M_MAX (15).\n");
                     // Some code here.
                 }
             } else {
@@ -199,14 +201,14 @@ bool FillVector(Vector *Vect, const float value, const bool check) {
             // Some code here.
         }
     } else {
-        // Bypassing the routine checks.
+        // Bypassing the routine verifications.
         // Assign the value to each element of the vector.
         for (uint8_t row = 0; row < Vect->rows; row++) {
             error = SetVectorElement(Vect, row, value, NO_ROUTINE_CHECK);
 
             if (error) {
-                // There's no need to go on.
-                printf("There's no need to go on (17).\n");
+                // There is no need to go on.
+                printf("There is no need to go on (17).\n");
                 break;
             }
         }
@@ -246,13 +248,13 @@ bool CopyVector(const Vector *const VectA, Vector *VectB, const bool check) {
                                                 error = SetVectorElement(VectB, row, element, NO_ROUTINE_CHECK);
 
                                                 if (error) {
-                                                    // There's no need to go on.
-                                                    printf("There's no need to go on ().");
+                                                    // There is no need to go on.
+                                                    printf("There is no need to go on ().");
                                                     break;
                                                 }
                                             } else {
-                                                // There's no need to go on.
-                                                printf("There's no need to go on ().");
+                                                // There is no need to go on.
+                                                printf("There is no need to go on ().");
                                                 break;
                                             }
                                         }
@@ -297,7 +299,7 @@ bool CopyVector(const Vector *const VectA, Vector *VectB, const bool check) {
             // Some code here.
         }
     } else {
-        // Bypassing the routine checks.
+        // Bypassing the routine verifications.
         // Check if vectors A and B have the same dimensions.
         if (AreSameSizeV(VectA, VectB, &error, NO_ROUTINE_CHECK)) {
             if (!error) {
@@ -309,13 +311,13 @@ bool CopyVector(const Vector *const VectA, Vector *VectB, const bool check) {
                         error = SetVectorElement(VectB, row, element, NO_ROUTINE_CHECK);
 
                         if (error) {
-                            // There's no need to go on.
-                            printf("There's no need to go on ().");
+                            // There is no need to go on.
+                            printf("There is no need to go on ().");
                             break;
                         }
                     } else {
-                        // There's no need to go on.
-                        printf("There's no need to go on ().");
+                        // There is no need to go on.
+                        printf("There is no need to go on ().");
                         break;
                     }
                 }
@@ -366,25 +368,25 @@ bool AreEqualV(const Vector *const VectA, const Vector *const VectB, bool *error
                                         // Retrieve the value of the specified element from the vector B.
                                         float elementB = GetVectorElement(VectB, row, error, NO_ROUTINE_CHECK);
 
-                                        // Check if the value of the element of the vector A is valid.
+                                        // Check if the value of the element of the vector B is valid.
                                         // Even if NO_ROUTINE_CHECK is used when calling GetVectorElement(), the function still returns an error if the value is invalid.
                                         if (!error) {
                                             areEqual = CloseAll(elementA, elementB, deviation);
 
                                             if (!areEqual) {
                                                 // The two vectors are different.
-                                                // There's no need to go on.
+                                                // There is no need to go on.
                                                 break;
                                             }
                                         } else {
                                             // The value of the element of the vector B is not valid.
-                                            // There's no need to go on.
+                                            // There is no need to go on.
                                             break;
                                             // Some code here.
                                         }
                                     } else {
                                         // The value of the element of the vector A is not valid.
-                                        // There's no need to go on.
+                                        // There is no need to go on.
                                         break;
                                         // Some code here.
                                     }
@@ -420,7 +422,7 @@ bool AreEqualV(const Vector *const VectA, const Vector *const VectB, bool *error
             // Some code here.
         }
     } else {
-        // Bypassing the routine checks.
+        // Bypassing the routine verifications.
         // Iterate through each element and check if they are close within the deviation.
         for (uint8_t row = 0; row < VectA->rows; row++) {
             // Retrieve the value of the specified element from the vector A.
@@ -439,18 +441,18 @@ bool AreEqualV(const Vector *const VectA, const Vector *const VectB, bool *error
 
                     if (!areEqual) {
                         // The two vectors are different.
-                        // There's no need to go on.
+                        // There is no need to go on.
                         break;
                     }
                 } else {
                     // The value of the element of the vector B is not valid.
-                    // There's no need to go on.
+                    // There is no need to go on.
                     break;
                     // Some code here.
                 }
             } else {
                 // The value of the element of the vector A is not valid.
-                // There's no need to go on.
+                // There is no need to go on.
                 break;
                 // Some code here.
             }
@@ -520,7 +522,7 @@ bool AreSameSizeV(const Vector *const VectA, const Vector *const VectB, bool *er
             // Some code here.
         }
     } else {
-        // Bypassing the routine checks.
+        // Bypassing the routine verifications.
         // Check if vector A has the same number of rows as vector B.
         if (VectA->rows == VectB->rows) {
             areSameSize = true;
@@ -550,7 +552,7 @@ bool PrintVector(const Vector *const Vect, const bool check) {
                         printf("%.3f\n",  GetVectorElement(Vect, row, &error, NO_ROUTINE_CHECK));
 
                         if (error) {
-                            // There's no need to go on.
+                            // There is no need to go on.
                             break;
                         }
                     }
@@ -569,14 +571,14 @@ bool PrintVector(const Vector *const Vect, const bool check) {
             // Some code here.
         }
     } else {
-        // Bypassing the routine checks.
+        // Bypassing the routine verifications.
         // Iterate through each element and print it and move to the next row with a newline character.
         for (uint8_t row = 0; row < Vect->rows; row++) {
             //printf("%.5f\n",  GetVectorElement(Vect, row, &error, NO_ROUTINE_CHECK));
             printf("%.3f\n",  GetVectorElement(Vect, row, &error, NO_ROUTINE_CHECK));
 
             if (error) {
-                // There's no need to go on.
+                // There is no need to go on.
                 break;
             }
         }
