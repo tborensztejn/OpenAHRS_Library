@@ -7,7 +7,7 @@ bool IsValidRow(const uint8_t row) {
     bool isValid = false;
 
     // Don't forget that the machine counts from 0 and not 1.
-    if (row < MAX_M) {
+    if (row < M_MAX) {
         isValid = true;
     }
 
@@ -19,7 +19,7 @@ bool IsValidCol(const uint8_t col) {
     bool isValid = false;
 
     // Don't forget that the machine counts from 0 and not 1.
-    if (col < MAX_N) {
+    if (col < N_MAX) {
         isValid = true;
     }
 

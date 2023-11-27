@@ -11,14 +11,14 @@ void PrintfBool(bool var) {
 int main() {
     /* The purpose of this code is to test the operation of the functions in the "Linalg" library. */
 
-    #define M   3   // This value must be less than or equal to MAX_M.
-    #define N   3   // This value must be less than or equal to MAX_N.
+    #define M   3   // This value must be less than or equal to M_MAX.
+    #define N   3   // This value must be less than or equal to N_MAX.
 
-    #if M > MAX_M
+    #if M > M_MAX
         #error "M exceeds the maximum allowed value."
     #endif
 
-    #if N > MAX_N
+    #if N > N_MAX
         #error "N exceeds the maximum allowed value."
     #endif
 
@@ -40,16 +40,16 @@ int main() {
     InitVector(&Vect1, rows, &error);
     PrintfBool(error);
     */
-    // Deliberately generate error (number of rows will exceed MAX_M).
-    Vector Vect2 = InitVector(NULL, MAX_M + 1, &error);
+    // Deliberately generate error (number of rows will exceed M_MAX).
+    Vector Vect2 = InitVector(NULL, M_MAX + 1, &error);
     PrintfBool(error);
     // Deliberately generate error (vector already initialized).
     Vector Vect3 = InitVector(NULL, rows, &error);
     InitVector(&Vect3, rows, &error);
     PrintfBool(error);
-    // Deliberately generate error (number of rows will exceed MAX_M).
+    // Deliberately generate error (number of rows will exceed M_MAX).
     CreateVector(Vect4);
-    InitVector(&Vect4, MAX_M + 1, &error);
+    InitVector(&Vect4, M_MAX + 1, &error);
     PrintfBool(error);
     printf("\n");
 
@@ -69,7 +69,7 @@ int main() {
     PrintfBool(error);
     // Deliberately generate error (row does not exist).
     Vector Vect8 = InitVector(NULL, rows, &error);
-    error = SetVectorElement(&Vect8, MAX_M + 1, value, ROUTINE_CHECK);
+    error = SetVectorElement(&Vect8, M_MAX + 1, value, ROUTINE_CHECK);
     PrintfBool(error);
     // Deliberately generate error (value is not valid).
     Vector Vect9 = InitVector(NULL, rows, &error);
@@ -102,7 +102,7 @@ int main() {
     value = 1.0f;
     // Deliberately generate error (row does not exist).
     Vector Vect15 = InitVector(NULL, rows, &error);
-    value = GetVectorElement(&Vect15, MAX_M + 1, &error, ROUTINE_CHECK);
+    value = GetVectorElement(&Vect15, M_MAX + 1, &error, ROUTINE_CHECK);
     PrintfBool(error);
     printf("%f\n", value);
     value = 1.0f;
@@ -135,9 +135,9 @@ int main() {
     Vector Vect20;
     error = FillVector(&Vect20, value, ROUTINE_CHECK);
     PrintfBool(error);
-    // Deliberately generate error (number of rows exceed MAX_M).
+    // Deliberately generate error (number of rows exceed M_MAX).
     Vector Vect21 = InitVector(NULL, rows, &error);
-    Vect21.rows = MAX_M + 1;    // Never do that!
+    Vect21.rows = M_MAX + 1;    // Never do that!
     error = FillVector(&Vect21, value, ROUTINE_CHECK);
     PrintfBool(error);
     // Deliberately generate error (value is not valid).

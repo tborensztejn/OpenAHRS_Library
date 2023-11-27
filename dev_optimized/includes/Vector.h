@@ -20,7 +20,7 @@
 // A vector is matrix of size mx1.
 typedef struct {
     uint8_t rows;                   // Number of rows in the vector.
-    float elements[MAX_M];          // All the elements of the vector in a linear array.
+    float elements[M_MAX];          // All the elements of the vector in a linear array.
     bool initialized;               // This variable is used to identify whether or not a vector has already been initialised. An uninitialised veector cannot be manipulated.
 } Vector;
 

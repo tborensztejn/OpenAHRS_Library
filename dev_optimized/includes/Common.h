@@ -31,14 +31,14 @@
     and the vector are fixed and capped.
 */
 
-#define MAX_M   4       // Maximum number of rows in a matrix and a vector.
-#define MAX_N   4       // Maximum number of columns in a matrix.
+#define M_MAX   4       // Maximum number of rows in a matrix and a vector.
+#define N_MAX   4       // Maximum number of columns in a matrix.
 
 /*** Declaration of function prototypes. ***/
 
-// This function is used to check if the index is valid (row number less than or equal to MAX_M) to avoid buffer overflow.
+// This function is used to check if the index is valid (row number less than or equal to M_MAX) to avoid buffer overflow.
 bool IsValidRow(const uint8_t row);
-// This function is used to check if the index is valid (colum number less than or equal to MAX_N) to avoid buffer overflow.
+// This function is used to check if the index is valid (colum number less than or equal to N_MAX) to avoid buffer overflow.
 bool IsValidCol(const uint8_t col);
 
 #endif

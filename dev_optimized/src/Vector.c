@@ -8,22 +8,22 @@ Vector InitVector(Vector *Vect, const uint8_t rows, bool *error) {
 
     // Check if the pointer is not null.
     if (Vect != NULL) {
-        // Check if the vector has already been initialized.
-        if (!Vect->initialized) {
+        // Check if the vector has already been initialised.
+        if (!Vect->initialised) {
             // Check if the numbers of rows of the vector will not exceed M_MAX.
             if (IsValidRow(rows)) {
                 Vect->rows = rows;          // Set the number of rows of the new vector.
-                Vect->initialized = true;   // Set the initialization flag to true.
+                Vect->initialised = true;   // Set the initialization flag to true.
 
                 *error = false; // Set the error flag to false.
             } else {
                 // The number of rows of the vector will exceed M_MAX.
-                printf("The number of rows of the vector will exceed M_MAX (err 3).\n");
+                //printf("The number of rows of the vector will exceed M_MAX (err 3).\n");
                 // Some code here.
             }
         } else {
-            // The vector passed as a parameter to the function via a pointer has already been initialized.
-            printf("The vector passed as a parameter to the function via a pointer has already been initialized (err 2).\n");
+            // The vector passed as a parameter to the function via a pointer has already been initialised.
+            //printf("The vector passed as a parameter to the function via a pointer has already been initialised (err 2).\n");
             // Some code here.
         }
     } else {
@@ -32,18 +32,21 @@ Vector InitVector(Vector *Vect, const uint8_t rows, bool *error) {
         //Vector NewVector = VECTOR_INITIALIZER;
         CreateVector(NewVector);
 
+        // Check if the numbers of rows of the vector will not exceed M_MAX.
         if (IsValidRow(rows)) {
             NewVector.rows = rows;          // Set the number of rows of the new vector.
-            NewVector.initialized = true;   // Set the initialization flag to true.
+            NewVector.initialised = true;   // Set the initialization flag to true.
 
-            *error = false;
+            *error = false;     // Set the error flag to false.
+
+            return NewVector;   // Return the initialised new vector.
         } else {
-            // The number of rows of the vector will exceed M_MAX.
-            printf("The number of rows of the vector will exceed M_MAX (err 1).\n");
+            // The number of rows of the new vector will exceed M_MAX.
+            //printf("The number of rows of the new vector will exceed M_MAX (err 1).\n");
             // Some code here.
         }
 
-        return NewVector;   // Return the initialized new vector.
+        //return NewVector;   // Return the initialised new vector.
     }
 }
 
@@ -51,14 +54,14 @@ Vector InitVector(Vector *Vect, const uint8_t rows, bool *error) {
 bool SetVectorElement(Vector *Vect, const uint8_t row, const float value, const bool check) {
     bool error = true;  // Initialize the error flag to true.
 
-    // The routine checks that the pointer to the vector is not zero, that the vector is initialised and that there is no buffer overflow.
+    // The routine checks that the pointer to the vector is not null, that the vector is initialised and that there is no buffer overflow.
 
     // Check if routine verifications need to be done.
     if (check) {
-        // Check if the pointer is not null.
+        // Check if the pointer to the vector is not null.
         if (Vect != NULL) {
-            // Check if the vector is initialized.
-            if (Vect->initialized) {
+            // Check if the vector is initialised.
+            if (Vect->initialised) {
                 // Check if the row exists (to prevent buffer overflow).
                 if (IsValidRow(row)) {
                     // Check if the value is valid.
@@ -67,22 +70,22 @@ bool SetVectorElement(Vector *Vect, const uint8_t row, const float value, const 
                         error = false;                  // Set the error flag to false.
                     } else {
                         // The value is not valid.
-                        printf("The value is not valid (6).\n");
+                        //printf("The value is not valid (6).\n");
                         // Some code here.
                     }
                 } else {
                     // The row does not exist.
-                    printf("The row does not exist (5).\n");
+                    //printf("The row does not exist (5).\n");
                     // Some code here.
                 }
             } else {
-                // The vector is not initialized.
-                printf("The vector is not initialized (4).\n");
+                // The vector is not initialised.
+                //printf("The vector is not initialised (4).\n");
                 // Some code here.
             }
         } else {
-            // The pointer is null.
-            printf("The pointer is null (3).\n");
+            // The pointer to the matrix is null.
+            //printf("The pointer to the matrix is null (3).\n");
             // Some code here.
         }
     } else {
@@ -93,7 +96,7 @@ bool SetVectorElement(Vector *Vect, const uint8_t row, const float value, const 
             error = false;                  // Set the error flag to false.
         } else {
             // The value is not valid.
-            printf("The value is not valid (7).\n");
+            //printf("The value is not valid (7).\n");
             // Some code here.
         }
     }
@@ -106,40 +109,40 @@ float GetVectorElement(const Vector *const Vect, const uint8_t row, bool *error,
     float element;  // Declare the variable that will store the returned value.
     *error = true;  // Set the error flag to true.
 
-    // The routine checks that the pointer to the vector is not zero, that the vector is initialised and that there is no buffer overflow.
+    // The routine checks that the pointer to the vector is not null, that the vector is initialised and that there is no buffer overflow.
 
     // Check if routine verifications need to be done.
     if (check) {
-        // Check if the pointer is not null.
+        // Check if the pointer to the vector is not null.
         if (Vect != NULL) {
-            // Check if the vector is initialized.
-            if (Vect->initialized) {
+            // Check if the vector is initialised.
+            if (Vect->initialised) {
                 // Check if the row exists (to prevent buffer overflow).
                 if (IsValidRow(row)) {
                     element = Vect->elements[row];  // Retrieve the value of the specified element from the vector.
 
-                    // Check if the element is valid.
+                    // Check if the value of the element is valid.
                     if (!isnan(element)) {
-                        *error = false; // Set the error to false.
+                        *error = false; // Set the error flag to false.
                     } else {
-                        // The element is not valid.
-                        printf("The value is not valid (11).\n");
+                        // The value of the element is not valid.
+                        //printf("The element is not valid (11).\n");
                         // Some code here.
                     }
                 } else {
                     // The row does not exist.
-                    printf("The row does not exist (10).\n");
+                    //printf("The row does not exist (10).\n");
                     element = NAN;
                     // Some code here.
                 }
             } else {
-                // The vector is not initialized.
-                printf("The vector is not initialized (9).\n");
+                // The vector is not initialised.
+                //printf("The vector is not initialised (9).\n");
                 element = NAN;
             }
         } else {
-            // The pointer is null.
-            printf("The pointer is null (8).\n");
+            // The pointer to the vector is null.
+            //printf("The pointer is null (8).\n");
             element = NAN;
         }
     } else {
@@ -150,8 +153,8 @@ float GetVectorElement(const Vector *const Vect, const uint8_t row, bool *error,
         if (!isnan(element)) {
             *error = false; // Set the error flag to false.
         } else {
-            // The element is not valid.
-            printf("The value is not valid (12).\n");
+            // The value of the element is not valid.
+            //printf("The element is not valid (12).\n");
             // Some code here.
         }
     }
@@ -163,14 +166,14 @@ float GetVectorElement(const Vector *const Vect, const uint8_t row, bool *error,
 bool FillVector(Vector *Vect, const float value, const bool check) {
     bool error = true;  // Initialize the error flag to true.
 
-    // The routine checks that the pointer to the vector is not zero, that the vector is initialised and that there is no buffer overflow.
+    // The routine checks that the pointer to the vector is not null, that the vector is initialised and that there is no buffer overflow.
 
     // Check if routine verifications need to be done.
     if (check) {
-        // Check if the pointer is not null.
+        // Check if the pointer to the vector is not null.
         if (Vect != NULL) {
-            // Check if the vector is initialized.
-            if (Vect->initialized) {
+            // Check if the vector is initialised.
+            if (Vect->initialised) {
                 // Check if the number of rows of the vector do not exceed M_MAX (to prevent buffer overflow).
                 if (IsValidRow(Vect->rows)) {
                     // Assign the value to each element of the vector.
@@ -181,34 +184,36 @@ bool FillVector(Vector *Vect, const float value, const bool check) {
 
                         if (error) {
                             // There is no need to go on.
-                            printf("There is no need to go on (16).\n");
+                            //printf("There is no need to go on (16).\n");
                             break;
                         }
                     }
                 } else {
                     // The number of rows of the vector exceeds M_MAX.
-                    printf("The number of rows of the vector exceeds M_MAX (15).\n");
+                    //printf("The number of rows of the vector exceeds M_MAX (15).\n");
                     // Some code here.
                 }
             } else {
-                // The vector is not initialized.
-                printf("The vector is not initialized (14).\n");
+                // The vector is not initialised.
+                //printf("The vector is not initialised (14).\n");
                 // Some code here.
             }
         } else {
-            // The pointer is null.
-            printf("The pointer is null (13).\n");
+            // The pointer to the vector is null.
+            //printf("The pointer is null (13).\n");
             // Some code here.
         }
     } else {
         // Bypassing the routine verifications.
         // Assign the value to each element of the vector.
         for (uint8_t row = 0; row < Vect->rows; row++) {
+            // There is not need to check if the value is valid.
+            // Even if NO_ROUTINE_CHECK is used when calling SetVectorElement(), the function still returns an error if the value is invalid.
             error = SetVectorElement(Vect, row, value, NO_ROUTINE_CHECK);
 
             if (error) {
                 // There is no need to go on.
-                printf("There is no need to go on (17).\n");
+                //printf("There is no need to go on (17).\n");
                 break;
             }
         }
@@ -229,10 +234,10 @@ bool CopyVector(const Vector *const VectA, Vector *VectB, const bool check) {
         if (VectA != NULL) {
             // Check if the pointer to the vector B is not null.
             if (VectB != NULL) {
-                // Check if the vector A is initialized.
-                if (VectA->initialized) {
-                    // Check if the vector B is initialized.
-                    if (VectB->initialized) {
+                // Check if the vector A is initialised.
+                if (VectA->initialised) {
+                    // Check if the vector B is initialised.
+                    if (VectB->initialised) {
                         // Check if the number of rows of the vector A do not exceed M_MAX (to prevent buffer overflow).
                         if (IsValidRow(VectA->rows)) {
                             // Check if the number of rows of the vector B do not exceed M_MAX (to prevent buffer overflow).
@@ -279,13 +284,13 @@ bool CopyVector(const Vector *const VectA, Vector *VectB, const bool check) {
                             // Some code here.
                         }
                     } else {
-                        // The vector B is not initialized.
-                        printf("The vector B is not initialized ().\n");
+                        // The vector B is not initialised.
+                        printf("The vector B is not initialised ().\n");
                         // Some code here.
                     }
                 } else {
-                    // The vector A is not initialized.
-                    printf("The vector A is not initialized ().\n");
+                    // The vector A is not initialised.
+                    printf("The vector A is not initialised ().\n");
                     // Some code here.
                 }
             } else {
@@ -349,10 +354,10 @@ bool AreEqualV(const Vector *const VectA, const Vector *const VectB, bool *error
         if (VectA != NULL) {
             // Check if the pointer to the vector B is not null.
             if (VectB != NULL) {
-                // Check if the vector A is initialized.
-                if (VectA->initialized) {
-                    // Check if the vector B is initialized.
-                    if (VectB->initialized) {
+                // Check if the vector A is initialised.
+                if (VectA->initialised) {
+                    // Check if the vector B is initialised.
+                    if (VectB->initialised) {
                         // Check if the number of rows of the vector A do not exceed M_MAX (to prevent buffer overflow).
                         if (IsValidRow(VectA->rows)) {
                             // Check if the number of rows of the vector B do not exceed M_MAX (to prevent buffer overflow).
@@ -402,13 +407,13 @@ bool AreEqualV(const Vector *const VectA, const Vector *const VectB, bool *error
                             // Some code here.
                         }
                     } else {
-                        // The vector B is not initialized.
-                        printf("The vector B is not initialized ().\n");
+                        // The vector B is not initialised.
+                        printf("The vector B is not initialised ().\n");
                         // Some code here.
                     }
                 } else {
-                    // The vector A is not initialized.
-                    printf("The vector A is not initialized ().\n");
+                    // The vector A is not initialised.
+                    printf("The vector A is not initialised ().\n");
                     // Some code here.
                 }
             } else {
@@ -475,10 +480,10 @@ bool AreSameSizeV(const Vector *const VectA, const Vector *const VectB, bool *er
         if (VectA != NULL) {
             // Check if the pointer to the vector B is not null.
             if (VectB != NULL) {
-                // Check if the vector A is initialized.
-                if (VectA->initialized) {
-                    // Check if the vector B is initialized.
-                    if (VectB->initialized) {
+                // Check if the vector A is initialised.
+                if (VectA->initialised) {
+                    // Check if the vector B is initialised.
+                    if (VectB->initialised) {
                         // Check if the number of rows of the vector A do not exceed M_MAX (to prevent buffer overflow).
                         if (IsValidRow(VectA->rows)) {
                             // Check if the number of rows of the vector B do not exceed M_MAX (to prevent buffer overflow).
@@ -502,13 +507,13 @@ bool AreSameSizeV(const Vector *const VectA, const Vector *const VectB, bool *er
                             // Some code here.
                         }
                     } else {
-                        // The vector B is not initialized.
-                        printf("The vector B is not initialized ().\n");
+                        // The vector B is not initialised.
+                        printf("The vector B is not initialised ().\n");
                         // Some code here.
                     }
                 } else {
-                    // The vector A is not initialized.
-                    printf("The vector A is not initialized ().\n");
+                    // The vector A is not initialised.
+                    printf("The vector A is not initialised ().\n");
                     // Some code here.
                 }
             } else {
@@ -542,8 +547,8 @@ bool PrintVector(const Vector *const Vect, const bool check) {
     if (check) {
         // Check if the pointer is not null.
         if (Vect != NULL) {
-            // Check if the vector is initialized.
-            if (Vect->initialized) {
+            // Check if the vector is initialised.
+            if (Vect->initialised) {
                 // Check if the numbers of rows of the vector do not exceed M_MAX (to prevent buffer overflow).
                 if (IsValidRow(Vect->rows)) {
                     // Iterate through each element and print it and move to the next row with a newline character.
@@ -567,7 +572,7 @@ bool PrintVector(const Vector *const Vect, const bool check) {
                 // Some code here.
             }
         } else {
-            // The vector is not initialized.
+            // The vector is not initialised.
             // Some code here.
         }
     } else {
