@@ -137,7 +137,7 @@ uint8_t Argmax(const float *const tab, size_t len) {
     return index;   // Return the index of the maximum value.
 }
 
-// Add an example here.
+
 uint8_t Argmin(const float *const tab, size_t len) {
     uint8_t index = 0;  // Initialize the index to the first element.
 
@@ -149,4 +149,27 @@ uint8_t Argmin(const float *const tab, size_t len) {
     }
 
     return index;   // Return the index of the minimum value.
+}
+
+// Add an example here.
+float InvSqrt(float x) {
+    // Fast inverse sqrt function.
+    /*
+     float halfx = 0.5f * x;
+     float y = x;
+     long i = *(long*)&y;
+     i = 0x5f3759df - (i>>1);
+     y = *(float*)&i;
+     y = y * (1.5f - (halfx * y * y));
+     y = y * (1.5f - (halfx * y * y));
+
+     return y;
+     */
+
+     // Alternate form.
+     unsigned int i = 0x5F1F1412 - (*(unsigned int*)&x >> 1);
+     float tmp = *(float*)&i;
+     float y = tmp * (1.69000231f - 0.714158168f * x * tmp * tmp);
+
+     return y;
 }

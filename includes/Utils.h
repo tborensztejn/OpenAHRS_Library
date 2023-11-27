@@ -57,5 +57,7 @@ bool CloseAll(const float x, const float y, const float deviation);
 uint8_t Argmax(const float *const tab, size_t len);
 // This function is used to find the index of the minimum value in an array of float values (tab) of a given length (len).
 uint8_t Argmin(const float *const tab, size_t len);
+// This function is used to calculate the inverse of the sqrt function.
+float InvSqrt(float x);
 
 #endif

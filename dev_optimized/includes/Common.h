@@ -20,8 +20,8 @@
     Some steps may be redundant. To optimise operation, they can be deactivated.
 */
 
-#define CHECK       1   // Enables verification steps.
-#define NO_CHECK    0   // Disables verification steps.
+#define ROUTINE_CHECK       1   // Enables routine verification steps.
+#define NO_ROUTINE_CHECK    0   // Disables routine verification steps.
 
 /*
     Notes:
