@@ -182,6 +182,7 @@ bool FillVector(Vector *Vect, const float value, const bool check) {
                         // Even if NO_ROUTINE_CHECK is used when calling SetVectorElement(), the function still returns an error if the value is invalid.
                         error = SetVectorElement(Vect, row, value, NO_ROUTINE_CHECK);
 
+                        // Break the loop if there is an error.
                         if (error) {
                             // There is no need to go on.
                             //printf("There is no need to go on (16).\n");
@@ -211,6 +212,7 @@ bool FillVector(Vector *Vect, const float value, const bool check) {
             // Even if NO_ROUTINE_CHECK is used when calling SetVectorElement(), the function still returns an error if the value is invalid.
             error = SetVectorElement(Vect, row, value, NO_ROUTINE_CHECK);
 
+            // Break the loop if there is an error.
             if (error) {
                 // There is no need to go on.
                 //printf("There is no need to go on (17).\n");
