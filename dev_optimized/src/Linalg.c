@@ -43,7 +43,7 @@ int main() {
     // Deliberately generate error (number of rows will exceed M_MAX).
     Vector Vect2 = InitVector(NULL, M_MAX + 1, &error);
     PrintfBool(error);
-    // Deliberately generate error (vector already initialized).
+    // Deliberately generate error (vector already initialised).
     Vector Vect3 = InitVector(NULL, rows, &error);
     InitVector(&Vect3, rows, &error);
     PrintfBool(error);
@@ -63,7 +63,7 @@ int main() {
     Vector *Vect6 = NULL;
     error = SetVectorElement(Vect6, row, value, ROUTINE_CHECK);
     PrintfBool(error);
-    // Deliberately generate error (vector not initialized).
+    // Deliberately generate error (vector not initialised).
     Vector Vect7;
     error = SetVectorElement(&Vect7, row, value, ROUTINE_CHECK);
     PrintfBool(error);
@@ -94,7 +94,7 @@ int main() {
     PrintfBool(error);
     printf("%f\n", value);
     value = 1.0f;
-    // Deliberately generate error (vector not initialized).
+    // Deliberately generate error (vector not initialised).
     Vector Vect14;
     value = GetVectorElement(&Vect14, row, &error, ROUTINE_CHECK);
     PrintfBool(error);
@@ -131,7 +131,7 @@ int main() {
     Vector *Vect19 = NULL;
     error = FillVector(Vect19, value, ROUTINE_CHECK);
     PrintfBool(error);
-    // Deliberately generate error (vector not initialized).
+    // Deliberately generate error (vector not initialised).
     Vector Vect20;
     error = FillVector(&Vect20, value, ROUTINE_CHECK);
     PrintfBool(error);

@@ -373,7 +373,7 @@ bool FillIdentityMatrix(Matrix *Mat, const bool check) {
 bool CopyMatrix(const Matrix *const MatA, Matrix *MatB, const bool check) {
     bool error = true;  // Initialize the error to true.
 
-    // The routine checks that the pointer to the matrix is not null, that the matrix is initialised and that there is no buffer overflow.
+    // The routine checks that the pointers to the matrices are not null, that the matrices are initialised and that there is no buffer overflow.
 
     // Check if routine verifications need to be done.
     if (check) {
@@ -403,7 +403,10 @@ bool CopyMatrix(const Matrix *const MatA, Matrix *MatB, const bool check) {
                                                         // Even if NO_ROUTINE_CHECK is used when calling GetMatrixElement(), the function still returns an error if the value is invalid.
                                                         float element = GetMatrixElement(MatA, row, col, &error, NO_ROUTINE_CHECK);
 
+                                                        // If no errors are encountered when retrieving the value of the element.
                                                         if (!error) {
+                                                            // There is not need to check if the value is valid.
+                                                            // Even if NO_ROUTINE_CHECK is used when calling SetMatrixElement(), the function still returns an error if the value is invalid.
                                                             error = SetMatrixElement(MatB, row, col, element, NO_ROUTINE_CHECK);
 
                                                             if (error) {
@@ -425,7 +428,7 @@ bool CopyMatrix(const Matrix *const MatA, Matrix *MatB, const bool check) {
                                                     }
                                                 }
                                             } else {
-                                                // An error was encountered when checking the similarity of the dimensions of matrices A and B.
+                                                // An error was encountered when checking the similarity of the dimensions of the matrices A and B.
                                                 // Some code here.
                                             }
                                         } else {
@@ -476,7 +479,10 @@ bool CopyMatrix(const Matrix *const MatA, Matrix *MatB, const bool check) {
                         // Even if NO_ROUTINE_CHECK is used when calling GetMatrixElement(), the function still returns an error if the value is invalid.
                         float element = GetMatrixElement(MatA, row, col, &error, NO_ROUTINE_CHECK);
 
+                        // If no errors are encountered when retrieving the value of the element.
                         if (!error) {
+                            // There is not need to check if the value is valid.
+                            // Even if NO_ROUTINE_CHECK is used when calling SetMatrixElement(), the function still returns an error if the value is invalid.
                             error = SetMatrixElement(MatB, row, col, element, NO_ROUTINE_CHECK);
 
                             if (error) {
@@ -497,7 +503,7 @@ bool CopyMatrix(const Matrix *const MatA, Matrix *MatB, const bool check) {
                     }
                 }
             } else {
-                // An error was encountered when checking the similarity of the dimensions of matrices A and B.
+                // An error was encountered when checking the similarity of the dimensions of the matrices A and B.
                 // Some code here.
             }
         } else {
@@ -514,7 +520,7 @@ bool AreEqualM(const Matrix *const MatA, const Matrix *const MatB, const float d
     bool areEqual = false;  // Initialize the result to false.
     *error = true;          // Set the error flag to true.
 
-    // The routine checks that the pointer to the matrix is not null, that the matrix is initialised and that there is no buffer overflow.
+    // The routine checks that the pointers to the matrices are not null, that the matrices are initialised and that there is no buffer overflow.
 
     // Check if routine verifications need to be done.
     if (check) {

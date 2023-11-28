@@ -6,7 +6,7 @@
 #define VECTOR_INITIALIZER { \
     .rows = 0, \
     .elements = {0}, \
-    .initialized = false \
+    .initialised = false \
 } \
 
 /*
@@ -21,7 +21,7 @@
 typedef struct {
     uint8_t rows;                   // Number of rows in the vector.
     float elements[M_MAX];          // All the elements of the vector in a linear array.
-    bool initialized;               // This variable is used to identify whether or not a vector has already been initialised. An uninitialised veector cannot be manipulated.
+    bool initialised;               // This variable is used to identify whether or not a vector has already been initialised. An uninitialised veector cannot be manipulated.
 } Vector;
 
 #define CreateVector(name) Vector name = VECTOR_INITIALIZER

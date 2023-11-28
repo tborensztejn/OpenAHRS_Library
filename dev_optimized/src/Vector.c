@@ -244,65 +244,70 @@ bool CopyVector(const Vector *const VectA, Vector *VectB, const bool check) {
                         if (IsValidRow(VectA->rows)) {
                             // Check if the number of rows of the vector B do not exceed M_MAX (to prevent buffer overflow).
                             if (IsValidRow(VectB->rows)) {
-                                // Check if vectors A and B have the same dimensions.
+                                // Check if the vectors A and B have the same dimensions.
                                 if (AreSameSizeV(VectA, VectB, &error, NO_ROUTINE_CHECK)) {
                                     if (!error) {
-                                        // Iterate through each element and copy it from vector A to vector B.
+                                        // Iterate through each element and copy it from the vector A to the vector B.
                                         for (uint8_t row = 0; row < VectA->rows; row++) {
+                                            // There is not need to check if the value is valid.
+                                            // Even if NO_ROUTINE_CHECK is used when calling GetVectorElement(), the function still returns an error if the value is invalid.
                                             float element = GetVectorElement(VectA, row, &error, NO_ROUTINE_CHECK);
 
+                                            // If no errors are encountered when retrieving the value of the element.
                                             if (!error) {
+                                                // There is not need to check if the value is valid.
+                                                // Even if NO_ROUTINE_CHECK is used when calling SetVectorElement(), the function still returns an error if the value is invalid.
                                                 error = SetVectorElement(VectB, row, element, NO_ROUTINE_CHECK);
 
                                                 if (error) {
                                                     // There is no need to go on.
-                                                    printf("There is no need to go on ().");
+                                                    //printf("There is no need to go on ().");
                                                     break;
                                                 }
                                             } else {
                                                 // There is no need to go on.
-                                                printf("There is no need to go on ().");
+                                                //printf("There is no need to go on ().");
                                                 break;
                                             }
                                         }
                                     } else {
-                                        // An error was encountered when checking the similarity of the dimensions of vectors A and B.
-                                        printf("An error was encountered when checking the similarity of the dimensions of vectors A and B ().\n");
+                                        // An error was encountered when checking the similarity of the dimensions of the vectors A and B.
+                                        //printf("An error was encountered when checking the similarity of the dimensions of the vectors A and B ().\n");
                                         // Some code here.
                                     }
                                 } else {
                                     // The vectors A and B do not have the same dimensions.
-                                    printf("The vectors A and B do not have the same dimensions ().\n");
+                                    //printf("The vectors A and B do not have the same dimensions ().\n");
                                     // Some code here.
                                 }
                             } else {
                                 // The number of rows of the vector B exceed M_MAX.
-                                printf("The number of rows of the vector B exceed M_MAX ().\n");
+                                //printf("The number of rows of the vector B exceed M_MAX ().\n");
                                 // Some code here.
                             }
                         } else {
                             // The number of rows of the vector A exceed M_MAX.
-                            printf("The number of rows of the vector A exceed M_MAX ().\n");
+                            //printf("The number of rows of the vector A exceed M_MAX ().\n");
                             // Some code here.
                         }
                     } else {
                         // The vector B is not initialised.
-                        printf("The vector B is not initialised ().\n");
+                        //printf("The vector B is not initialised ().\n");
                         // Some code here.
                     }
                 } else {
                     // The vector A is not initialised.
-                    printf("The vector A is not initialised ().\n");
+                    //printf("The vector A is not initialised ().\n");
                     // Some code here.
                 }
             } else {
                 // The pointer to the vector B is null.
-                printf("The pointer to the vector B is null ().\n");
+                //printf("The pointer to the vector B is null ().\n");
                 // Some code here.
             }
         } else {
             // The pointer to the vector A is null.
-            printf("The pointer to the vector A is null ().\n");
+            //printf("The pointer to the vector A is null ().\n");
             // Some code here.
         }
     } else {
@@ -312,30 +317,35 @@ bool CopyVector(const Vector *const VectA, Vector *VectB, const bool check) {
             if (!error) {
                 // Iterate through each element and copy it from vector A to vector B.
                 for (uint8_t row = 0; row < VectA->rows; row++) {
+                    // There is not need to check if the value is valid.
+                    // Even if NO_ROUTINE_CHECK is used when calling GetVectorElement(), the function still returns an error if the value is invalid.
                     float element = GetVectorElement(VectA, row, &error, NO_ROUTINE_CHECK);
 
+                    // If no errors are encountered when retrieving the value of the element.
                     if (!error) {
+                        // There is not need to check if the value is valid.
+                        // Even if NO_ROUTINE_CHECK is used when calling SetVectorElement(), the function still returns an error if the value is invalid.
                         error = SetVectorElement(VectB, row, element, NO_ROUTINE_CHECK);
 
                         if (error) {
                             // There is no need to go on.
-                            printf("There is no need to go on ().");
+                            //printf("There is no need to go on ().");
                             break;
                         }
                     } else {
                         // There is no need to go on.
-                        printf("There is no need to go on ().");
+                        //printf("There is no need to go on ().");
                         break;
                     }
                 }
             } else {
-                // An error was encountered when checking the similarity of the dimensions of vectors A and B.
-                printf("An error was encountered when checking the similarity of the dimensions of vectors A and B ().\n");
+                // An error was encountered when checking the similarity of the dimensions of the vectors A and B.
+                //printf("An error was encountered when checking the similarity of the dimensions of the vectors A and B ().\n");
                 // Some code here.
             }
         } else {
             // The vectors A and B do not have the same dimensions.
-            printf("The vectors A and B do not have the same dimensions ().\n");
+            //printf("The vectors A and B do not have the same dimensions ().\n");
             // Some code here.
         }
     }

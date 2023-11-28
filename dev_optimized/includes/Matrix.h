@@ -7,7 +7,7 @@
     .rows = 0, \
     .cols = 0, \
     .elements = {0}, \
-    .initialized = false \
+    .initialised = false \
 } \
 
 /*
@@ -22,7 +22,7 @@ typedef struct {
     uint8_t rows;                   // Number of rows in the matrix.
     uint8_t cols;                   // Number of columns in the matrix.
     float elements[M_MAX * N_MAX];  // All the elements of the 2D matrix in a linear array.
-    bool initialized;               // This variable is used to identify whether or not a matrix has already been initialised. An uninitialised matrix cannot be manipulated.
+    bool initialised;               // This variable is used to identify whether or not a matrix has already been initialised. An uninitialised matrix cannot be manipulated.
 } Matrix;
 
 #define CreateMatrix(name) Matrix name = MATRIX_INITIALIZER
