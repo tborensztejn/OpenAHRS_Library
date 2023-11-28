@@ -50,7 +50,11 @@ bool AreSameSizeM(const Matrix *const MatA, const Matrix *const MatB, bool *erro
 // This function is used to diplay a matrix of size (m x n).
 bool PrintMatrix(const Matrix *const Mat, const bool check);
 
+
 /*** Declarations of function prototypes of fundamental matrix calculation functions. ***/
+
+// This function is used to perform the matrix addition operation of two matrices of size (m x n).
+bool Add(const Matrix *const MatA, const Matrix *const MatB, Matrix *MatC);
 // Some code here.
 
 /*** Declaration of function prototypes for advanced matrix calculation functions. ***/

@@ -374,105 +374,127 @@ bool AreEqualV(const Vector *const VectA, const Vector *const VectB, bool *error
                         if (IsValidRow(VectA->rows)) {
                             // Check if the number of rows of the vector B do not exceed M_MAX (to prevent buffer overflow).
                             if (IsValidRow(VectB->rows)) {
-                                // Iterate through each element and check if they are close within the deviation.
-                                for (uint8_t row = 0; row < VectA->rows; row++) {
-                                    // Retrieve the value of the specified element from the vector A.
-                                    float elementA = GetVectorElement(VectA, row, error, NO_ROUTINE_CHECK);
-
-                                    // Check if the value of the element of the vector A is valid.
-                                    // Even if NO_ROUTINE_CHECK is used when calling GetVectorElement(), the function still returns an error if the value is invalid.
+                                // Check if the vectors A and B have the same dimensions.
+                                if (AreSameSizeV(VectA, VectB, error, NO_ROUTINE_CHECK)) {
                                     if (!error) {
-                                        // Retrieve the value of the specified element from the vector B.
-                                        float elementB = GetVectorElement(VectB, row, error, NO_ROUTINE_CHECK);
+                                        // Iterate through each element and check if they are close within the deviation.
+                                        for (uint8_t row = 0; row < VectA->rows; row++) {
+                                            // Retrieve the value of the specified element from the vector A.
+                                            float elementA = GetVectorElement(VectA, row, error, NO_ROUTINE_CHECK);
 
-                                        // Check if the value of the element of the vector B is valid.
-                                        // Even if NO_ROUTINE_CHECK is used when calling GetVectorElement(), the function still returns an error if the value is invalid.
-                                        if (!error) {
-                                            areEqual = CloseAll(elementA, elementB, deviation);
+                                            // Check if the value of the element of the vector A is valid.
+                                            // Even if NO_ROUTINE_CHECK is used when calling GetVectorElement(), the function still returns an error if the value is invalid.
+                                            if (!error) {
+                                                // Retrieve the value of the specified element from the vector B.
+                                                float elementB = GetVectorElement(VectB, row, error, NO_ROUTINE_CHECK);
 
-                                            if (!areEqual) {
-                                                // The two vectors are different.
+                                                // Check if the value of the element of the vector B is valid.
+                                                // Even if NO_ROUTINE_CHECK is used when calling GetVectorElement(), the function still returns an error if the value is invalid.
+                                                if (!error) {
+                                                    areEqual = CloseAll(elementA, elementB, deviation);
+
+                                                    if (!areEqual) {
+                                                        // The two vectors are different.
+                                                        // There is no need to go on.
+                                                        break;
+                                                    }
+                                                } else {
+                                                    // The value of the element of the vector B is not valid.
+                                                    // There is no need to go on.
+                                                    break;
+                                                    // Some code here.
+                                                }
+                                            } else {
+                                                // The value of the element of the vector A is not valid.
                                                 // There is no need to go on.
                                                 break;
+                                                // Some code here.
                                             }
-                                        } else {
-                                            // The value of the element of the vector B is not valid.
-                                            // There is no need to go on.
-                                            break;
-                                            // Some code here.
                                         }
                                     } else {
-                                        // The value of the element of the vector A is not valid.
-                                        // There is no need to go on.
-                                        break;
+                                        // An error was encountered when checking the similarity of the dimensions of the vectors A and B.
                                         // Some code here.
                                     }
+                                } else {
+                                    // The vectors A and B do not have the same dimensions.
+                                    // Some code here.
                                 }
                             } else {
                                 // The number of rows of the vector B exceed M_MAX.
-                                printf("The number of rows of the vector B exceed M_MAX ().\n");
+                                //printf("The number of rows of the vector B exceed M_MAX ().\n");
                                 // Some code here.
                             }
                         } else {
                             // The number of rows of the vector A exceed M_MAX.
-                            printf("The number of rows of the vector A exceed M_MAX ().\n");
+                            //printf("The number of rows of the vector A exceed M_MAX ().\n");
                             // Some code here.
                         }
                     } else {
                         // The vector B is not initialised.
-                        printf("The vector B is not initialised ().\n");
+                        //printf("The vector B is not initialised ().\n");
                         // Some code here.
                     }
                 } else {
                     // The vector A is not initialised.
-                    printf("The vector A is not initialised ().\n");
+                    //printf("The vector A is not initialised ().\n");
                     // Some code here.
                 }
             } else {
                 // The pointer to the vector B is null.
-                printf("The pointer to the vector B is null ().\n");
+                //printf("The pointer to the vector B is null ().\n");
                 // Some code here.
             }
         } else {
             // The pointer to the vector A is null.
-            printf("The pointer to the vector A is null ().\n");
+            //printf("The pointer to the vector A is null ().\n");
             // Some code here.
         }
     } else {
         // Bypassing the routine verifications.
-        // Iterate through each element and check if they are close within the deviation.
-        for (uint8_t row = 0; row < VectA->rows; row++) {
-            // Retrieve the value of the specified element from the vector A.
-            float elementA = GetVectorElement(VectA, row, error, NO_ROUTINE_CHECK);
-
-            // Check if the value of the element of the vector A is valid.
-            // Even if NO_ROUTINE_CHECK is used when calling GetVectorElement(), the function still returns an error if the value is invalid.
+        // Check if the vectors A and B have the same dimensions.
+        if (AreSameSizeV(VectA, VectB, error, NO_ROUTINE_CHECK)) {
             if (!error) {
-                // Retrieve the value of the specified element from the vector B.
-                float elementB = GetVectorElement(VectB, row, error, NO_ROUTINE_CHECK);
+                // Iterate through each element and check if they are close within the deviation.
+                for (uint8_t row = 0; row < VectA->rows; row++) {
+                    // Retrieve the value of the specified element from the vector A.
+                    float elementA = GetVectorElement(VectA, row, error, NO_ROUTINE_CHECK);
 
-                // Check if the value of the element of the vector A is valid.
-                // Even if NO_ROUTINE_CHECK is used when calling GetVectorElement(), the function still returns an error if the value is invalid.
-                if (!error) {
-                    areEqual = CloseAll(elementA, elementB, deviation);
+                    // Check if the value of the element of the vector A is valid.
+                    // Even if NO_ROUTINE_CHECK is used when calling GetVectorElement(), the function still returns an error if the value is invalid.
+                    if (!error) {
+                        // Retrieve the value of the specified element from the vector B.
+                        float elementB = GetVectorElement(VectB, row, error, NO_ROUTINE_CHECK);
 
-                    if (!areEqual) {
-                        // The two vectors are different.
+                        // Check if the value of the element of the vector B is valid.
+                        // Even if NO_ROUTINE_CHECK is used when calling GetVectorElement(), the function still returns an error if the value is invalid.
+                        if (!error) {
+                            areEqual = CloseAll(elementA, elementB, deviation);
+
+                            if (!areEqual) {
+                                // The two vectors are different.
+                                // There is no need to go on.
+                                break;
+                            }
+                        } else {
+                            // The value of the element of the vector B is not valid.
+                            // There is no need to go on.
+                            break;
+                            // Some code here.
+                        }
+                    } else {
+                        // The value of the element of the vector A is not valid.
                         // There is no need to go on.
                         break;
+                        // Some code here.
                     }
-                } else {
-                    // The value of the element of the vector B is not valid.
-                    // There is no need to go on.
-                    break;
-                    // Some code here.
                 }
             } else {
-                // The value of the element of the vector A is not valid.
-                // There is no need to go on.
-                break;
+                // An error was encountered when checking the similarity of the dimensions of the vectors A and B.
                 // Some code here.
             }
+        } else {
+            // The vectors A and B do not have the same dimensions.
+            // Some code here.
         }
     }
 

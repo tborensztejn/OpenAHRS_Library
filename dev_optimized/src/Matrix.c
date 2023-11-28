@@ -928,3 +928,8 @@ bool PrintMatrix(const Matrix *const Mat, const bool check) {
 
     return error;   // Return the state of the error flag.
 }
+
+// Add an example here.
+bool Add(const Matrix *const MatA, const Matrix *const MatB, Matrix *MatC) {
+    
+}
