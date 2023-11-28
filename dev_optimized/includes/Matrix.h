@@ -7,7 +7,7 @@
     .rows = 0, \
     .cols = 0, \
     .elements = {0}, \
-    .initialised = false \
+    .initialized = false \
 } \
 
 /*
@@ -22,7 +22,7 @@ typedef struct {
     uint8_t rows;                   // Number of rows in the matrix.
     uint8_t cols;                   // Number of columns in the matrix.
     float elements[M_MAX * N_MAX];  // All the elements of the 2D matrix in a linear array.
-    bool initialised;               // This variable is used to identify whether or not a matrix has already been initialised. An uninitialised matrix cannot be manipulated.
+    bool initialized;               // This variable is used to identify whether or not a matrix has already been initialized. An uninitialized matrix cannot be manipulated.
 } Matrix;
 
 #define CreateMatrix(name) Matrix name = MATRIX_INITIALIZER
@@ -30,7 +30,7 @@ typedef struct {
 /*** Declaration of basic function prototypes for matrix manipulation. ***/
 
 // This function is used to initialise a matrix of size (m x n) by assigning a value of 0 to each element.
-Matrix InitMatrix(Matrix *Mat, const uint8_t rows, const uint8_t cols, bool *error);
+Matrix InitMatrix(Matrix *Mat, const uint8_t rows, const uint8_t cols, bool *error, ErrorType *errorType);
 // This function is used to assign a value to a specific element of a matrix of size (m x n).
 bool SetMatrixElement(Matrix *Mat, const uint8_t row, const uint8_t col, const float value, const bool check);
 // This function is used to access a specific element of a matrix of size (m x n).

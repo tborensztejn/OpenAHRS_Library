@@ -13,6 +13,20 @@
 // Defining a Boolean type using typedef
 //typedef enum {false, true} bool;
 
+typedef enum {
+    NO_ERROR,
+    NULL_PTR,
+    UNINITIALIZED,
+    ALREADY_INIT,
+    INVALID_ROWS_NUMBER,
+    INVALID_COLS_NUMBER,
+    NON_EXISTING_ROW,
+    NON_EXISTING_COL,
+    SIZE_MISMATCH,
+    INVALID_VALUE,
+    INVALID_ELEMENT
+} ErrorType;
+
 /*
     Notes:
 
@@ -36,9 +50,13 @@
 
 /*** Declaration of function prototypes. ***/
 
-// This function is used to check if the index is valid (row number less than or equal to M_MAX) to avoid buffer overflow.
-bool IsValidRow(const uint8_t row);
-// This function is used to check if the index is valid (colum number less than or equal to N_MAX) to avoid buffer overflow.
-bool IsValidCol(const uint8_t col);
+// This function is used to check if the rows number is valid (rows number less than or equal to M_MAX) to avoid buffer overflow.
+bool IsValidRowsNumber(const uint8_t rows);
+// This function is used to check if the columns number is valid (colums number less than or equal to N_MAX) to avoid buffer overflow.
+bool IsValidColsNumber(const uint8_t cols);
+// This function is used to check if the index is valid (row number less than number of rows) to avoid buffer overflow.
+bool IsValidRow(const uint8_t row, const uint8_t rows);
+// This function is used to check if the index is valid (column number less than number of columns) to avoid buffer overflow.
+bool IsValidCol(const uint8_t col, const uint8_t cols);
 
 #endif

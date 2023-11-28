@@ -1,77 +1,108 @@
 #include "../includes/Matrix.h"
 
 // Add an example here.
-Matrix InitMatrix(Matrix *Mat, const uint8_t rows, const uint8_t cols, bool *error) {
+Matrix InitMatrix(Matrix *Mat, const uint8_t rows, const uint8_t cols, bool *error, ErrorType *errorType) {
     *error = true;  // Set the error flag to true.
 
-    // The routine checks that the pointer to the matrix is not null, that the matrix is initialised and that there is no buffer overflow.
+    // The check routine verifies that the pointer to the matrix is not null, that the matrix has not already been initialized and that there are no buffer overflow attempts.
 
-    // Check if the pointer is not null.
+    // Check that the pointer is not null.
     if (Mat != NULL) {
-        // Check if the matrix has already been initialised.
-        if (!Mat->initialised) {
-            // Check if the numbers of rows of the matrix will not exceed M_MAX.
-            if (IsValidRow(rows)) {
-                // Check if the numbers of columns of the matrix will not exceed N_MAX.
-                if (IsValidCol(cols)) {
-                    Mat->rows = rows;           // Set the number of rows of the new matrix.
-                    Mat->cols = cols;           // Set the number of columns of the new matrix.
-                    Mat->initialised = true;    // Set the initialization flag to true.
+        // Check if the matrix has already been initialized.
+        if (!Mat->initialized) {
+            // Check that the number of rows does not exceed M_MAX (to avoid buffer overflow).
+            if (IsValidRowsNumber(rows)) {
+                // Check that the number of columns does not exceed N_MAX (to avoid buffer overflow).
+                if (IsValidColsNumber(cols)) {
+                    Mat->rows = rows;           // Set the number of rows in the new matrix.
+                    Mat->cols = cols;           // Set the number of columns in the new matrix.
+                    Mat->initialized = true;    // Set the initialization flag to true.
 
-                    *error = false; // Set the error flag to false.
+                    *error = false;             // Set the error flag to false.
+                    *errorType = NO_ERROR;      // Set the error type.
                 } else {
-                    // The number of columns of the matrix will exceed N_MAX.
-                    // Some code here.
+                    // The number of columns exceeds N_MAX.
+                    *errorType = INVALID_COLS_NUMBER;   // Set the error type.
                 }
             } else {
-                // The number of rows of the matrix will exceed M_MAX.
-                // Some code here.
+                // The number of rows exceeds M_MAX.
+                *errorType = INVALID_ROWS_NUMBER;   // Set the error type.
             }
         } else {
-            // The matrix passed as a parameter to the function via a pointer has already been initialised.
-            // Some code here.
+            // The matrix has already been initialized.
+            *errorType = ALREADY_INIT;  // Set the error type.
         }
     } else {
         // The pointer is null.
         //Matrix NewMatrix = MATRIX_INITIALIZER;
         CreateMatrix(NewMatrix);
 
-        // Check if the numbers of rows of the matrix will not exceed M_MAX.
-        if (IsValidRow(rows)) {
-            // Check if the numbers of columns of the matrix will not exceed N_MAX.
-            if (IsValidCol(cols)) {
-                NewMatrix.rows = rows;          // Set the number of rows of the new matrix.
-                NewMatrix.cols = cols;          // Set the number of columns of the new matrix.
-                NewMatrix.initialised = true;   // Set the initialization flag to true.
+        // Check that the number of rows does not exceed M_MAX (to avoid buffer overflow).
+        if (IsValidRowsNumber(rows)) {
+            // Check that the number of columns does not exceed N_MAX (to avoid buffer overflow).
+            if (IsValidColsNumber(cols)) {
+                NewMatrix.rows = rows;          // Set the number of rows in the new matrix.
+                NewMatrix.cols = cols;          // Set the number of columns in the new matrix.
+                NewMatrix.initialized = true;   // Set the initialization flag to true.
 
-                *error = false;     // Set the error flag to false.
+                *error = false;                 // Set the error flag to false.
+                *errorType = NO_ERROR;          // Set the error type.
 
-                return NewMatrix;   // Return the initialised new matrix.
+                return NewMatrix;   // Return the initialized new matrix.
             } else {
-                // The number of columns of the new matrix will exceed N_MAX.
-                // Some code here.
+                // The number of columns exceeds N_MAX.
+                *errorType = INVALID_COLS_NUMBER;   // Set the error type.
             }
         } else {
-            // The number of rows of the new matrix will exceed M_MAX.
-            // Some code here.
+            // The number of rows exceeds M_MAX.
+            *errorType = INVALID_ROWS_NUMBER;   // Set the error type.
         }
 
-        //return NewMatrix;   // Return the initialised new matrix.
+        //return NewMatrix;   // Return the initialized new matrix.
     }
 }
+
+// Add an example here.
+bool ApplyRoutineVectorChecks(const Matrix *const Mat, ErrorType *errorType, const uint8_t *const row, const uint8_t *const col) {
+    bool error = true;  // Initialize the error flag to true.
+
+    // The check routine verifies that the pointer to the matrix is not null, that the matrix is initialized and that there are no buffer overflow attempts.
+
+    // Check that the pointer is not null.
+    if (Mat != NULL) {
+        // Check that the matrix is initialized.
+        if (Mat->initialized) {
+            // Check that the number of rows does not exceed M_MAX (to avoid buffer overflow).
+            if (IsValidRowsNumber(Mat->rows)) {
+                if (row != NULL) {
+                    // Check if the row exists.
+                    if (IsValidRow(*row, Vect->rows)) {
+
+                    }
+                }
+        }
+
+
+
+
+
+
+
+
+
 
 // Add an example here.
 bool SetMatrixElement(Matrix *Mat, const uint8_t row, const uint8_t col, const float value, const bool check) {
     bool error = true;  // Initialize the error flag to true.
 
-    // The routine checks that the pointer to the matrix is not null, that the matrix is initialised and that there is no buffer overflow.
+    // The routine checks that the pointer to the matrix is not null, that the matrix is initialized and that there is no buffer overflow.
 
     // Check if routine verifications need to be done.
     if (check) {
         // Check if the pointer to the matrix is not null.
         if (Mat != NULL) {
-            // Check if the matrix is initialised.
-            if (Mat->initialised) {
+            // Check if the matrix is initialized.
+            if (Mat->initialized) {
                 // Check if the row exists (to prevent buffer overflow).
                 if (IsValidRow(row)) {
                     // Check if the column exists (to prevent buffer overflow).
@@ -93,7 +124,7 @@ bool SetMatrixElement(Matrix *Mat, const uint8_t row, const uint8_t col, const f
                     // Some code here.
                 }
             } else {
-                // The matrix is not initialised.
+                // The matrix is not initialized.
                 // Some code here.
             }
         } else {
@@ -120,14 +151,14 @@ float GetMatrixElement(const Matrix *const Mat, const uint8_t row, const uint8_t
     float element;  // Declare the variable that will store the returned value.
     *error = true;  // Set the error flag to true.
 
-    // The routine checks that the pointer to the matrix is not null, that the matrix is initialised and that there is no buffer overflow.
+    // The routine checks that the pointer to the matrix is not null, that the matrix is initialized and that there is no buffer overflow.
 
     // Check if routine verifications need to be done.
     if (check) {
         // Check if the pointer to the matrix is not null.
         if (Mat != NULL) {
-            // Check if the matrix is initialised.
-            if (Mat->initialised) {
+            // Check if the matrix is initialized.
+            if (Mat->initialized) {
                 // Check if the row exists (to prevent buffer overflow).
                 if (IsValidRow(row)) {
                     // Check if the column exists (to prevent buffer overflow).
@@ -152,7 +183,7 @@ float GetMatrixElement(const Matrix *const Mat, const uint8_t row, const uint8_t
                     // Some code here.
                 }
             } else {
-                // The matrix is not initialised.
+                // The matrix is not initialized.
                 element = NAN;
                 // Some code here.
             }
@@ -181,14 +212,14 @@ float GetMatrixElement(const Matrix *const Mat, const uint8_t row, const uint8_t
 bool FillMatrix(Matrix *Mat, const float value, const bool check) {
     bool error = true;  // Initialize the error flag to true.
 
-    // The routine checks that the pointer to the matrix is not null, that the matrix is initialised and that there is no buffer overflow.
+    // The routine checks that the pointer to the matrix is not null, that the matrix is initialized and that there is no buffer overflow.
 
     // Check if routine verifications need to be done.
     if (check) {
         // Check if the pointer to the matrix is not null.
         if (Mat != NULL) {
-            // Check if the matrix is initialised.
-            if (Mat->initialised) {
+            // Check if the matrix is initialized.
+            if (Mat->initialized) {
                 // Check if the numbers of rows of the matrix do not exceed M_MAX.
                 if (IsValidRow(Mat->rows)) {
                     // Check if the numbers of columns of the matrix do not exceed N_MAX.
@@ -224,7 +255,7 @@ bool FillMatrix(Matrix *Mat, const float value, const bool check) {
                     // Some code here.
                 }
             } else {
-                // The matrix is not initialised.
+                // The matrix is not initialized.
                 // Some code here.
             }
         } else {
@@ -264,14 +295,14 @@ bool FillMatrix(Matrix *Mat, const float value, const bool check) {
 bool FillIdentityMatrix(Matrix *Mat, const bool check) {
     bool error = true;  // Initialize the error flag to true.
 
-    // The routine checks that the pointer to the matrix is not null, that the matrix is initialised and that there is no buffer overflow.
+    // The routine checks that the pointer to the matrix is not null, that the matrix is initialized and that there is no buffer overflow.
 
     // Check if routine verifications need to be done.
     if (check) {
         // Check if the pointer to the matrix is not null.
         if (Mat != NULL) {
-            // Check if the matrix is initialised.
-            if (Mat->initialised) {
+            // Check if the matrix is initialized.
+            if (Mat->initialized) {
                 // Check if the numbers of rows of the matrix do not exceed M_MAX.
                 if (IsValidRow(Mat->rows)) {
                     // Check if the numbers of columns of the matrix do not exceed N_MAX.
@@ -320,7 +351,7 @@ bool FillIdentityMatrix(Matrix *Mat, const bool check) {
                     // Some code here.
                 }
             } else {
-                // The matrix is not initialised.
+                // The matrix is not initialized.
                 // Some code here.
             }
         } else {
@@ -373,7 +404,7 @@ bool FillIdentityMatrix(Matrix *Mat, const bool check) {
 bool CopyMatrix(const Matrix *const MatA, Matrix *MatB, const bool check) {
     bool error = true;  // Initialize the error to true.
 
-    // The routine checks that the pointers to the matrices are not null, that the matrices are initialised and that there is no buffer overflow.
+    // The routine checks that the pointers to the matrices are not null, that the matrices are initialized and that there is no buffer overflow.
 
     // Check if routine verifications need to be done.
     if (check) {
@@ -381,10 +412,10 @@ bool CopyMatrix(const Matrix *const MatA, Matrix *MatB, const bool check) {
         if (MatA != NULL) {
             // Check if the pointer to the matrix B is not null.
             if (MatB != NULL) {
-                // Check if the matrix A is initialised.
-                if (MatA->initialised) {
-                    // Check if the matrix B is initialised.
-                    if (MatB->initialised) {
+                // Check if the matrix A is initialized.
+                if (MatA->initialized) {
+                    // Check if the matrix B is initialized.
+                    if (MatB->initialized) {
                         // Check if the numbers of rows of the matrix A do not exceed M_MAX.
                         if (IsValidRow(MatA->rows)) {
                             // Check if the numbers of rows of the matrix B do not exceed M_MAX.
@@ -452,11 +483,11 @@ bool CopyMatrix(const Matrix *const MatA, Matrix *MatB, const bool check) {
                             // Some code here.
                         }
                     } else {
-                        // The matrix B is not initialised.
+                        // The matrix B is not initialized.
                         // Some code here.
                     }
                 } else {
-                    // The matrix A is not initialised.
+                    // The matrix A is not initialized.
                     // Some code here.
                 }
             } else {
@@ -520,7 +551,7 @@ bool AreEqualM(const Matrix *const MatA, const Matrix *const MatB, const float d
     bool areEqual = false;  // Initialize the result to false.
     *error = true;          // Set the error flag to true.
 
-    // The routine checks that the pointers to the matrices are not null, that the matrices are initialised and that there is no buffer overflow.
+    // The routine checks that the pointers to the matrices are not null, that the matrices are initialized and that there is no buffer overflow.
 
     // Check if routine verifications need to be done.
     if (check) {
@@ -528,10 +559,10 @@ bool AreEqualM(const Matrix *const MatA, const Matrix *const MatB, const float d
         if (MatA != NULL) {
             // Check if the pointer to the matrix B is not null.
             if (MatB != NULL) {
-                // Check if the matrix A is initialised.
-                if (MatA->initialised) {
-                    // Check if the matrix B is initialised.
-                    if (MatB->initialised) {
+                // Check if the matrix A is initialized.
+                if (MatA->initialized) {
+                    // Check if the matrix B is initialized.
+                    if (MatB->initialized) {
                         // Check if the numbers of rows of the matrix A do not exceed M_MAX.
                         if (IsValidRow(MatA->rows)) {
                             // Check if the numbers of rows of the matrix B do not exceed M_MAX.
@@ -618,11 +649,11 @@ bool AreEqualM(const Matrix *const MatA, const Matrix *const MatB, const float d
                             // Some code here.
                         }
                     } else {
-                        // The matrix B is not initialised.
+                        // The matrix B is not initialized.
                         // Some code here.
                     }
                 } else {
-                    // The matrix A is not initialised.
+                    // The matrix A is not initialized.
                     // Some code here.
                 }
             } else {
@@ -706,14 +737,14 @@ bool IsSquare(const Matrix *const Mat, bool *error, const bool check) {
     bool isSquare = false;  // Initialize the result to false.
     *error = true;          // Set the error flag to true.
 
-    // The routine checks that the pointer to the matrix is not null, that the matrix is initialised and that there is no buffer overflow.
+    // The routine checks that the pointer to the matrix is not null, that the matrix is initialized and that there is no buffer overflow.
 
     // Check if routine verifications need to be done.
     if (check) {
         // Check if the pointer is not null.
         if (Mat != NULL) {
-            // Check if the matrix is initialised.
-            if (Mat->initialised) {
+            // Check if the matrix is initialized.
+            if (Mat->initialized) {
                 // Check if the numbers of rows of the matrix do not exceed M_MAX.
                 if (IsValidRow(Mat->rows)) {
                     // Check if the numbers of columns of the matrix do not exceed N_MAX.
@@ -735,7 +766,7 @@ bool IsSquare(const Matrix *const Mat, bool *error, const bool check) {
                     // Some code here.
                 }
             } else {
-                // The matrix is not initialised.
+                // The matrix is not initialized.
                 // Some code here.
             }
         } else {
@@ -762,7 +793,7 @@ bool AreSameSizeM(const Matrix *const MatA, const Matrix *const MatB, bool *erro
     bool areSameSize = false;   // Initialize the result to false.
     *error = true;              // Set the error flag to true.
 
-    // The routine checks that the pointer to the matrix is not null, that the matrix is initialised and that there is no buffer overflow.
+    // The routine checks that the pointer to the matrix is not null, that the matrix is initialized and that there is no buffer overflow.
 
     // Check if routine verifications need to be done.
     if (check) {
@@ -770,10 +801,10 @@ bool AreSameSizeM(const Matrix *const MatA, const Matrix *const MatB, bool *erro
         if (MatA != NULL) {
             // Check if the pointer to the matrix B is not null.
             if (MatB != NULL) {
-                // Check if the matrix A is initialised.
-                if (MatA->initialised) {
-                    // Check if the matrix B is initialised.
-                    if (MatB->initialised) {
+                // Check if the matrix A is initialized.
+                if (MatA->initialized) {
+                    // Check if the matrix B is initialized.
+                    if (MatB->initialized) {
                         // Check if the numbers of rows of the matrix A do not exceed M_MAX.
                         if (IsValidRow(MatA->rows)) {
                             // Check if the numbers of rows of the matrix B do not exceed M_MAX.
@@ -813,11 +844,11 @@ bool AreSameSizeM(const Matrix *const MatA, const Matrix *const MatB, bool *erro
                             // Some code here.
                         }
                     } else {
-                        // The matrix B is not initialised.
+                        // The matrix B is not initialized.
                         // Some code here.
                     }
                 } else {
-                    // The matrix A is not initialised.
+                    // The matrix A is not initialized.
                     // Some code here.
                 }
             } else {
@@ -852,14 +883,14 @@ bool AreSameSizeM(const Matrix *const MatA, const Matrix *const MatB, bool *erro
 bool PrintMatrix(const Matrix *const Mat, const bool check) {
     bool error = true;  // Initialize the error flag to true.
 
-    // The routine checks that the pointer to the matrix is not null, that the matrix is initialised and that there is no buffer overflow.
+    // The routine checks that the pointer to the matrix is not null, that the matrix is initialized and that there is no buffer overflow.
 
     // Check if routine verifications need to be done.
     if (check) {
         // Check if the pointer is not null.
         if (Mat != NULL) {
-            // Check if the matrix is initialised.
-            if (Mat->initialised) {
+            // Check if the matrix is initialized.
+            if (Mat->initialized) {
                 // Check if the numbers of rows of the matrix do not exceed M_MAX.
                 if (IsValidRow(Mat->rows)) {
                     // Check if the numbers of columns of the matrix do not exceed N_MAX.
@@ -894,7 +925,7 @@ bool PrintMatrix(const Matrix *const Mat, const bool check) {
                     // Some code here.
                 }
             } else {
-                // The matrix is not initialised.
+                // The matrix is not initialized.
                 // Some code here.
             }
         } else {
@@ -931,5 +962,6 @@ bool PrintMatrix(const Matrix *const Mat, const bool check) {
 
 // Add an example here.
 bool Add(const Matrix *const MatA, const Matrix *const MatB, Matrix *MatC) {
-    
+
 }
+*/
