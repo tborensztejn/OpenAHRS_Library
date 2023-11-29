@@ -5,7 +5,7 @@
 
 #define VECTOR_INITIALIZER { \
     .rows = 0, \
-    .elements = {0}, \
+    .elements = {0.0f}, \
     .initialized = false \
 } \
 

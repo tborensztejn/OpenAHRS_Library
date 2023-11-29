@@ -6,7 +6,7 @@
 #define MATRIX_INITIALIZER { \
     .rows = 0, \
     .cols = 0, \
-    .elements = {0}, \
+    .elements = {0.0f}, \
     .initialized = false \
 } \
 
@@ -31,6 +31,8 @@ typedef struct {
 
 // This function is used to initialise a matrix of size (m x n) by assigning a value of 0 to each element.
 Matrix InitMatrix(Matrix *Mat, const uint8_t rows, const uint8_t cols, bool *error, ErrorType *errorType);
+// Add description here.
+bool ApplyRoutineMatrixChecks(const Matrix *const Mat, ErrorType *errorType, const uint8_t *const row, const uint8_t *const col);
 // This function is used to assign a value to a specific element of a matrix of size (m x n).
 bool SetMatrixElement(Matrix *Mat, const uint8_t row, const uint8_t col, const float value, const bool check);
 // This function is used to access a specific element of a matrix of size (m x n).

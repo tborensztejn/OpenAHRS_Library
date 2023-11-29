@@ -63,7 +63,7 @@ Matrix InitMatrix(Matrix *Mat, const uint8_t rows, const uint8_t cols, bool *err
 }
 
 // Add an example here.
-bool ApplyRoutineVectorChecks(const Matrix *const Mat, ErrorType *errorType, const uint8_t *const row, const uint8_t *const col) {
+bool ApplyRoutineMatrixChecks(const Matrix *const Mat, ErrorType *errorType, const uint8_t *const row, const uint8_t *const col) {
     bool error = true;  // Initialize the error flag to true.
 
     // The check routine verifies that the pointer to the matrix is not null, that the matrix is initialized and that there are no buffer overflow attempts.
@@ -74,13 +74,64 @@ bool ApplyRoutineVectorChecks(const Matrix *const Mat, ErrorType *errorType, con
         if (Mat->initialized) {
             // Check that the number of rows does not exceed M_MAX (to avoid buffer overflow).
             if (IsValidRowsNumber(Mat->rows)) {
-                if (row != NULL) {
-                    // Check if the row exists.
-                    if (IsValidRow(*row, Vect->rows)) {
-
+                // Check that the number of columns does not exceed N_MAX (to avoid buffer overflow).
+                if (IsValidColsNumber(Mat->cols)) {
+                    if (row != NULL) {
+                        // Check if the row exists.
+                        if (IsValidRow(*row, Mat->rows)) {
+                            // Routine checks were successfully completed.
+                            // This matrix is fully operational.
+                            error = false;          // Set the error flag to false.
+                            *errorType = NO_ERROR;  // Set the error type.
+                        } else {
+                            // The row does not exist.
+                            *errorType = NON_EXISTING_ROW;  // Set the error type.
+                        }
+                    } else {
+                        // No row specified to check.
+                        // Routine checks were successfully completed.
+                        // This matrix is fully operational.
+                        error = false;          // Set the error flag to false.
+                        *errorType = NO_ERROR;  // Set the error type.
                     }
+
+                    if (col != NULL) {
+                        // Check if the column exists.
+                        if (IsValidCol(*col, Mat->rows)) {
+                            // Routine checks were successfully completed.
+                            // This matrix is fully operational.
+                            error = false;          // Set the error flag to false.
+                            *errorType = NO_ERROR;  // Set the error type.
+                        } else {
+                            // The column does not exist.
+                            *errorType = NON_EXISTING_COL;  // Set the error type.
+                        }
+                    } else {
+                        // No column specified to check.
+                        // Routine checks were successfully completed.
+                        // This matrix is fully operational.
+                        error = false;          // Set the error flag to false.
+                        *errorType = NO_ERROR;  // Set the error type.
+                    }
+                } else {
+                    // The number of columns exceeds N_MAX.
+                    *errorType = INVALID_COLS_NUMBER;   // Set the error type.
                 }
+            } else {
+                // The number of rows exceeds M_MAX.
+                *errorType = INVALID_ROWS_NUMBER;   // Set the error type.
+            }
+        } else {
+            // The matrix is not initialized.
+            *errorType = UNINITIALIZED;   // Set the error type.
         }
+    } else {
+        // The pointer is null.
+        *errorType = NULL_PTR;  // Set the error type.
+    }
+
+    return error;   // Return the state of the error flag.
+}
 
 
 
@@ -91,6 +142,10 @@ bool ApplyRoutineVectorChecks(const Matrix *const Mat, ErrorType *errorType, con
 
 
 
+
+
+
+/*
 // Add an example here.
 bool SetMatrixElement(Matrix *Mat, const uint8_t row, const uint8_t col, const float value, const bool check) {
     bool error = true;  // Initialize the error flag to true.

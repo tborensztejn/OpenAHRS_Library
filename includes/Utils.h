@@ -33,7 +33,8 @@
 #include <math.h>       // This includes declarations for standard mathematical functions in C.
 #include <stdbool.h>    // This includes the necessary declarations to use the boolean data type and related constants (true and false).
 
-#define EPSILON 0.000000001f
+//#define EPSILON 0.000000001f
+#define EPSILON 0.0001f
 
 /*** Declaration of useful function prototypes. ***/
 
