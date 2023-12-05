@@ -173,3 +173,15 @@ float InvSqrt(float x) {
 
      return y;
 }
+
+float Sat(const float x, const float min, const float max) {
+    float ret = x;
+
+    if (x < min) {
+        ret = min;
+    } else if (x > max) {
+        ret = max;
+    }
+
+    return ret;
+}

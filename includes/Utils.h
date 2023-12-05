@@ -26,6 +26,12 @@
 #ifndef UTILS_H
 #define UTILS_H
 
+#define _USE_MATH_DEFINES
+
+#ifndef M_PI
+#define M_PI 3.14159265358979323846f
+#endif
+
 #include <stdio.h>      // This includes declarations and definitions necessary for standard input/output operations in C.
 #include <stdlib.h>     // This includes declarations for functions related to dynamic memory management.
 #include <stdint.h>     // This includes definitions for standard integer types with specified widths.
@@ -60,5 +66,7 @@ uint8_t Argmax(const float *const tab, size_t len);
 uint8_t Argmin(const float *const tab, size_t len);
 // This function is used to calculate the inverse of the sqrt function.
 float InvSqrt(float x);
+// This function is used to limit a value into an interval (saturator).
+float Sat(const float x, const float min, const float max);
 
 #endif
